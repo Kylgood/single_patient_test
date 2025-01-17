@@ -93,7 +93,7 @@ public:
 	Provider(Patient*);
 	void take_vital_signs();
 	void chart_report();
-	
+
 };
 
 class Nurse : public Provider
