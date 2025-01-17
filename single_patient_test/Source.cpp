@@ -1,3 +1,6 @@
+//EMERGENCY ROOM SINGLE PATIENT EXPERIENCE
+//by Kyle Goodale
+//CS50 Final Project
 
 #include <iostream>
 #include <vector>
@@ -5,13 +8,7 @@
 #include <sstream>
 #include <random>
 
-
-
-//EMERGENCY ROOM SINGLE PATIENT EXPERIENCE
-//by Kyle Goodale
-//CS50 Final Project
-
-//PROVIDERS
+//Healthcare "data" class declarations
 
 class Generators //for testing and simulation
 {
@@ -29,8 +26,7 @@ public:
 class Vitals {
 		
 private:
-
-	//no need for a map
+		
 	int systolic;
 	int diastolic;
 	int pulse;
@@ -63,6 +59,8 @@ public:
 	void update_chart(Vitals*);
 	void print_chart();
 };
+
+//healthcare "actor" class declarations
 
 class Patient
 {
@@ -170,9 +168,9 @@ int main()
 
 }
 
+//class Generator definitions
 Generators::Generators() 
 {}
-
 const int Generators::sys_gen() 
 {
 	std::uniform_int_distribution<unsigned> sys_range(60, 200);
@@ -232,8 +230,7 @@ const int Generators::loc_gen()
 	return final;
 }
 
-
-
+//class Vitals definitions
 Vitals::Vitals(const int sys, const int dia, const int hr, const int rr, const float t, const int lc) //systolic, diastolic, heart rate, resp, temp, level conciousness
 	:systolic(sys), diastolic(dia), pulse(hr), resps(rr), temp(t), loc(lc)
 {
@@ -264,6 +261,8 @@ const float Vitals::show_temp()
 {
 	return Vitals::temp;
 }
+
+//class Chart definitions
 Chart::Chart() {}
 void Chart::update_chart(Vitals* s) 
 {
@@ -284,13 +283,13 @@ void Chart::print_chart()
 	
 }
 
+//class Patient definitions
 Patient::Patient()
 	:complaint(0)
 {
 	p_ch = new Chart;
 	p_gen = new Generators;
 }
-
 int Patient::chief_complaint()
 {
 	int count = 0;
@@ -320,20 +319,18 @@ int Patient::chief_complaint()
 			++count;
 			if (count >= 3) {
 				std::cout << "Stay where you are.  A nurse is coming to get you." << std::endl;
-				return -999;
+				return -999;//follow this up
 			}
 		}
 	}
 	std::cout << "Thank you for your patience. A nurse will be with you shortly." << std::endl;
 	return input;
 }
-
 void Patient::end_program()
 {
-	std::cout << "Exiting program." << std::endl;
+	std::cout << "Exiting program. The nurse will input your information." << std::endl;
 	exit(3);
 }
-
 void Patient::set_allergies(std::string s) 
 {
 	allergies.push_back(s);
@@ -342,12 +339,10 @@ void Patient::set_vax(std::string s)
 {
 	vax.push_back(s);
 }
-
 void Patient::set_last_po(unsigned int n)
 {
 	last_po = n;
 }
-
 void Patient::set_complaint(const int com)
 {
 	if (com != -999)
@@ -359,12 +354,13 @@ void Patient::set_complaint(const int com)
 		end_program();
 	}
 }
-
 int Patient::will_see_you_now()
 {
 	return 1;
 	
 }
+
+//base class Provider definitions
 
 Provider::Provider(Patient* p)
 	:p_pt(p)
@@ -381,11 +377,12 @@ void Provider::take_vital_signs()
 	Vitals* s = new Vitals(systolic, diastolic, pulse, resp, temp, loc);
 	p_pt->p_ch->update_chart(s);
 }
-
 void Provider::chart_report()
 {
 	p_pt->p_ch->print_chart();
 }
+
+//derived class Nurse definitions
 Nurse::Nurse(Patient* q)
 	:Provider(q)
 {}
@@ -399,46 +396,60 @@ void Nurse::triage()
 	//if complaint = 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10, 11, 12
 	std::cout << "You are next in line." << std::endl;
 	std::cout << "Answering these questions will be helpful to the nurse in the triage process:" << std::endl;
-	std::cout << "Please enter the medications to which you are allergic.  If there are none, press enter." << std::endl;
+	std::cout << "Please enter the medications to which you are allergic.  If there are none, type q on a new line and press enter." << std::endl;
 	while (getline(std::cin, line_allerg))
 	{
+		if (line_allerg == 'q')
+		{
+			break;
+		}
 		std::istringstream divider(line_allerg);
 		while (divider >> a_bridge)
 		{
 			p_pt->set_allergies(a_bridge);
 		}
-		//if non-string
-		//if (std::cin.fail()){}
 	}
 	std::cout << "Please list all of the vaccines that you have received." << std::endl;
 	while (getline(std::cin, line_vax))
 	{
+		if (line_vax == 'q')
+		{
+			break;
+		}
 		std::istringstream separate(line_vax);
 		while (separate >> v_bridge)
 		{
 			p_pt->set_vax(v_bridge);
 		}
-		//if non-string
-		//if (std::cin.fail()){}
 	}
-	std::cout << "When was the last time that you ate or drank anything?" << std::endl;
-	std::cin >> last_po;//if non-integer
-	//if (std::cin.fail()){}
+	std::cout << "How many hours ago did you last eat or drink anything?" << std::endl;
+	std::cin >> last_po;
+	if (std::cin.fail())//if non-numeric...
+	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Invalid entry." << std::endl;
+		std::cin >> last_po;
+		++count;
+		if (count >= 3) {
+			std::cout << "Too many invalid entries, you will need to tell the nurse." << std::endl;
+		}
+	}
 	p_pt->set_last_po(last_po);
 
 	//now take the first set of vital signs:
 	std::cout << "The nurse will now take a first set of vital signs." << std::endl;
 	take_vital_signs();
-	//depending on acuity:
+
+	//next step depends on acuity:
 	std::cout << "Your chart has been updated.  Thank you for your patience while we find an available room in the department." << std::endl;
 	std::cout << "You may return to the waiting room.  The nurse will call you." << std::endl;
 
 	
 }
-
-
-//EXECUTING PHYSICIAN ORDERS
 void Nurse::draw_labs(const int c) {}
+
+//derived class Physician definitions
 Physician::Physician(Patient* pt, Nurse* rn) 
 	:Provider(pt), p_rn(rn)
 {
