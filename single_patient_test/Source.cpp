@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
+#include <sstream>
 #include <random>
 
 
@@ -11,7 +13,7 @@
 
 //PROVIDERS
 
-class Generators
+class Generators //for testing and simulation
 {
 
 public:
@@ -66,14 +68,22 @@ class Patient
 {
 private:
 	int complaint;
+	std::vector<std::string> allergies;
+	std::vector<std::string> vax;
+	unsigned int last_po;
 public:
 	Generators* p_gen;
 	Chart* p_ch;
 	Patient();
 	int chief_complaint();
-	void set_complaint(int);
+	void set_allergies(std::string s);
+	void set_vax(std::string s);
+	void set_last_po(unsigned int n);
+	void end_program(); 
+	void set_complaint(const int);
 	int will_see_you_now();
 
+	
 };
 
 class Provider
@@ -283,21 +293,23 @@ Patient::Patient()
 
 int Patient::chief_complaint()
 {
+	int count = 0;
 	int input;
 	std::cout << "What brings you into the emergency room?" << std::endl;
-	std::cout << "Please select your complaint by typing the corresponding number and pressing enter:" << std::endl;
-	std::cout << "1 - You are having chest pain." << std::endl;
-	std::cout << "2 - You are having trouble breathing or are choking." << std::endl;
-	std::cout << "3 - You have a headache or you think you had a seizure." << std::endl;
-	std::cout << "4 - You have abdominal pain, vomiting, nausea, or diarrhea." << std::endl;
-	std::cout << "5 - You fell and hit the ground or an outside force hit you, such as in a vehicular accident." << std::endl;
-	std::cout << "6 - Some part of your body is not working, weak, or just 'hurting'." << std::endl;
-	std::cout << "7 - You were assaulted." << std::endl;
-	std::cout << "8 - You feel very sick, but none of the above." << std::endl;
-	std::cout << "9 - You think you might hurt yourself on purpose." << std::endl;
-	std::cout << "10 - You were exposed to extreme temperatures, drowned, or were burned." << std::endl;
+	std::cout << "Please select what is wrong by typing the corresponding number and pressing enter." << std::endl;
+	std::cout << "1 - You are having chest pain and/or palpitations." << std::endl;
+	std::cout << "2 - You are having trouble breathing or you are choking." << std::endl;
+	std::cout << "3 - You have severe abdominal pain with or without nausea, vomiting, diarrhea." << std::endl;
+	std::cout << "4 - You have a severe headache, vision changes, hearing loss, speech changes, or sudden weakness." << std::endl;
+	std::cout << "6 - You were in a vehicular accident." << std::endl;
+	std::cout << "7 - You think you might hurt or kill yourself." << std::endl;
+	std::cout << "8 - You have a laceration or a nosebleed." << std::endl;
+	std::cout << "9 - You were physically or sexually assaulted." << std::endl;
+	std::cout << "10 - You fell or something hit you." << std::endl;
+	std::cout << "11 - You just feel very sick, and at-home treatment is not working." << std::endl;
+	std::cout << "12 - You do not know what is wrong, but you need help." << std::endl;
 	std::cin >> input;
-	while (input <= 0 || input > 10)
+	while (input <= 0 || input > 12)
 	{
 		if (std::cin.fail())
 		{
@@ -305,14 +317,47 @@ int Patient::chief_complaint()
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Invalid entry." << std::endl;
 			std::cin >> input;
+			++count;
+			if (count >= 3) {
+				std::cout << "Stay where you are.  A nurse is coming to get you." << std::endl;
+				return -999;
+			}
 		}
 	}
+	std::cout << "Thank you for your patience. A nurse will be with you shortly." << std::endl;
 	return input;
 }
 
-void Patient::set_complaint(int com)
+void Patient::end_program()
 {
-	complaint = com;
+	std::cout << "Exiting program." << std::endl;
+	exit(3);
+}
+
+void Patient::set_allergies(std::string s) 
+{
+	allergies.push_back(s);
+}
+void Patient::set_vax(std::string s)
+{
+	vax.push_back(s);
+}
+
+void Patient::set_last_po(unsigned int n)
+{
+	last_po = n;
+}
+
+void Patient::set_complaint(const int com)
+{
+	if (com != -999)
+	{
+		complaint = com;
+	}
+	else
+	{
+		end_program();
+	}
 }
 
 int Patient::will_see_you_now()
@@ -346,8 +391,53 @@ Nurse::Nurse(Patient* q)
 {}
 void Nurse::triage() 
 {
+	std::string line_allerg;
+	std::string line_vax;
+	std::string a_bridge;
+	std::string v_bridge;
+	int last_po;
+	//if complaint = 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10, 11, 12
+	std::cout << "You are next in line." << std::endl;
+	std::cout << "Answering these questions will be helpful to the nurse in the triage process:" << std::endl;
+	std::cout << "Please enter the medications to which you are allergic.  If there are none, press enter." << std::endl;
+	while (getline(std::cin, line_allerg))
+	{
+		std::istringstream divider(line_allerg);
+		while (divider >> a_bridge)
+		{
+			p_pt->set_allergies(a_bridge);
+		}
+		//if non-string
+		//if (std::cin.fail()){}
+	}
+	std::cout << "Please list all of the vaccines that you have received." << std::endl;
+	while (getline(std::cin, line_vax))
+	{
+		std::istringstream separate(line_vax);
+		while (separate >> v_bridge)
+		{
+			p_pt->set_vax(v_bridge);
+		}
+		//if non-string
+		//if (std::cin.fail()){}
+	}
+	std::cout << "When was the last time that you ate or drank anything?" << std::endl;
+	std::cin >> last_po;//if non-integer
+	//if (std::cin.fail()){}
+	p_pt->set_last_po(last_po);
+
+	//now take the first set of vital signs:
+	std::cout << "The nurse will now take a first set of vital signs." << std::endl;
 	take_vital_signs();
+	//depending on acuity:
+	std::cout << "Your chart has been updated.  Thank you for your patience while we find an available room in the department." << std::endl;
+	std::cout << "You may return to the waiting room.  The nurse will call you." << std::endl;
+
+	
 }
+
+
+//EXECUTING PHYSICIAN ORDERS
 void Nurse::draw_labs(const int c) {}
 Physician::Physician(Patient* pt, Nurse* rn) 
 	:Provider(pt), p_rn(rn)
