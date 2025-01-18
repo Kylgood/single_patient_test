@@ -1,7 +1,8 @@
 //EMERGENCY ROOM SINGLE PATIENT EXPERIENCE
 //by Kyle Goodale
 //CS50 Final Project
-
+//part educational (ex: explain what a nonrebreather is)
+//part entertainment
 #include <iostream>
 #include <vector>
 #include <string>
@@ -70,20 +71,28 @@ class Patient
 {
 private:
 	int complaint;
+	std::string last_name;
+	std::string first_name;
+	std::string sex_at_birth;
+	std::string dob;
 	std::vector<std::string> allergies;
 	std::vector<std::string> vax;
+	std::vector<std::string> meds;
 	unsigned int last_po;
 public:
 	Generators* p_gen;
 	Chart* p_ch;
 	Patient();
+	void get_set_demographics();
 	int chief_complaint();
 	void set_allergies(std::string s);
 	void set_vax(std::string s);
+	void set_meds(std::string s);
 	void set_last_po(unsigned int n);
 	void end_program(); 
 	void set_complaint(const int);
 	void will_see_you_now();
+	void print_demographics();
 
 	
 };
@@ -122,6 +131,7 @@ public:
 	void see_patient();
 	void order_lab_tests(const int);
 	void order_imaging(const int);
+	void order_ekg(const int);
 	void order_iv_drugs(const int);
 	void emergency_procedure(const int);
 	void call_consult(const int);// = new surgeon, etc.
@@ -145,6 +155,7 @@ int main()
 	Patient user;
 	Nurse nurse(&user);
 	Physician doctor(&user, &nurse);
+	user.get_set_demographics();
 	const int cc = user.chief_complaint();
 	user.set_complaint(cc);
 	nurse.triage();
@@ -292,15 +303,28 @@ void Chart::print_chart()
 
 //class Patient definitions
 Patient::Patient()
-	:complaint(0)
+	:complaint(0), last_name("default"), first_name("default"), sex_at_birth("default"), dob("default"),last_po(0)
 {
 	p_ch = new Chart;
 	p_gen = new Generators;
+	std::cout << "Welcome to the Emergency Room!" << std::endl;
+}
+void Patient::get_set_demographics()
+{
+	std::cout << "Please enter your last name." << std::endl;
+	std::cin >> last_name;
+	std::cout << "Please enter your first name." << std::endl;
+	std::cin >> first_name;
+	std::cout << "Please enter your biological sex at birth." << std::endl;
+	std::cin >> sex_at_birth;
+	std::cout << "Please enter your date of birth.  (Format: MM/DD/YY)" << std::endl;
+	std::cin >> dob;
 }
 int Patient::chief_complaint()
 {
 	int count = 0;
 	int input;
+	
 	std::cout << "What brings you into the emergency room?" << std::endl;
 	std::cout << "Please select what is wrong by typing the corresponding number and pressing enter." << std::endl;
 	std::cout << "1 - You are having chest pain and/or palpitations." << std::endl;
@@ -346,6 +370,10 @@ void Patient::set_vax(std::string s)
 {
 	vax.push_back(s);
 }
+void Patient::set_meds(std::string s)
+{
+	meds.push_back(s);
+}
 void Patient::set_last_po(unsigned int n)
 {
 	last_po = n;
@@ -362,16 +390,22 @@ void Patient::set_complaint(const int com)
 	}
 }
 void Patient::will_see_you_now()
-{
+{//stdcout the physician has seen you
+	//part educational explain the equipment part entertainment
 	//if (complaint == 3)
 	//{
 
 	//}
 	
 }
-
+void Patient::print_demographics() 
+{
+	std::cout << "Name: " << last_name << ", " << first_name << std::endl;
+	std::cout << "Sex at Birth: " << sex_at_birth << std::endl;
+	std::cout << "Date of Birth: " << dob << std::endl;
+	
+}
 //base class Provider definitions
-
 Provider::Provider(Patient* p)
 	:p_pt(p)
 {}
@@ -389,6 +423,7 @@ void Provider::take_vital_signs()
 }
 void Provider::chart_report()
 {
+	p_pt->print_demographics();
 	p_pt->p_ch->print_chart();
 }
 
@@ -396,17 +431,20 @@ void Provider::chart_report()
 Nurse::Nurse(Patient* q)
 	:Provider(q)
 {}
-void Nurse::triage() 
+void Nurse::triage()
 {
 	std::string line_allerg;
 	std::string line_vax;
+	std::string line_meds;
 	std::string a_bridge;
 	std::string v_bridge;
+	std::string m_bridge;
 	int last_po;
 	//if complaint = 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10, 11, 12
+	//allergies
 	std::cout << "You are next in line." << std::endl;
 	std::cout << "Answering these questions will be helpful to the nurse in the triage process:" << std::endl;
-	std::cout << "Please enter the medications to which you are allergic.  If there are none, type q on a new line and press enter." << std::endl;
+	std::cout << "Please enter any foods or medications to which you are ALLERGIC.  If there are none, type q on a new line and press enter." << std::endl;
 	while (getline(std::cin, line_allerg))
 	{
 		if (line_allerg == 'q')
@@ -419,7 +457,9 @@ void Nurse::triage()
 			p_pt->set_allergies(a_bridge);
 		}
 	}
-	std::cout << "Please list all of the vaccines that you have received." << std::endl;
+	std::cout << std::endl;
+	//vaccines
+	std::cout << "Please list all of the vaccines that you have received. If there are none, type q on a new line and press enter." << std::endl;
 	while (getline(std::cin, line_vax))
 	{
 		if (line_vax == 'q')
@@ -432,6 +472,23 @@ void Nurse::triage()
 			p_pt->set_vax(v_bridge);
 		}
 	}
+	std::cout << std::endl;
+	//medications
+	std::cout << "Please list any medications you are CURRENTLY TAKING. If there are none, type q on a new line and press enter." << std::endl;
+	while (getline(std::cin, line_meds))
+	{
+		if (line_meds == 'q')
+		{
+			break;
+		}
+		std::istringstream wall(line_meds);
+		while (wall >> m_bridge)
+		{
+			p_pt->set_meds(m_bridge);
+		}
+	}	
+	std::cout << std::endl;
+	//last_PO
 	std::cout << "How many hours ago did you last eat or drink anything?" << std::endl;
 	std::cin >> last_po;
 	if (std::cin.fail())//if non-numeric...
@@ -453,9 +510,7 @@ void Nurse::triage()
 
 	//next step depends on acuity:
 	std::cout << "Your chart has been updated.  Thank you for your patience while we find an available room in the department." << std::endl;
-	
-
-	
+		
 }
 void Nurse::draw_labs(const int c) {}
 
@@ -464,7 +519,7 @@ Physician::Physician(Patient* pt, Nurse* rn)
 	:Provider(pt), p_rn(rn)
 {
 }
-void Physician::see_patient() 
+void Physician::see_patient()
 {
 	p_pt->will_see_you_now();
 }
@@ -472,6 +527,9 @@ void Physician::order_lab_tests(const int t)
 {
 	p_rn->draw_labs();
 }
+void Physician::order_ekg() {}
+void Physician::order_imaging() {}
+void Physician::
 
 
 
