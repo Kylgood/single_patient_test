@@ -3,6 +3,7 @@
 //CS50 Final Project
 //part educational (ex: explain what a nonrebreather is)
 //part entertainment
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -11,7 +12,6 @@
 #include <ctime>
 
 //Healthcare "data" class declarations
-
 class Generators //for testing and simulation
 {
 
@@ -66,7 +66,6 @@ public:
 };
 
 //healthcare "actor" class declarations
-
 class Patient
 {
 private:
@@ -128,7 +127,7 @@ private:
 	
 public:
 	Physician(Patient*, Nurse*);
-	void see_patient();
+	const int see_patient();
 	void order_lab_tests(const int);
 	void order_imaging(const int);
 	void order_ekg(const int);
@@ -405,6 +404,7 @@ void Patient::print_demographics()
 	std::cout << "Date of Birth: " << dob << std::endl;
 	
 }
+
 //base class Provider definitions
 Provider::Provider(Patient* p)
 	:p_pt(p)
@@ -513,23 +513,32 @@ void Nurse::triage()
 		
 }
 void Nurse::draw_labs(const int c) {}
+void Nurse::place_iv() {}
+void Nurse::perform_ekg() {}
+void Nurse::pass_report() {}
 
 //derived class Physician definitions
 Physician::Physician(Patient* pt, Nurse* rn) 
 	:Provider(pt), p_rn(rn)
 {
 }
-void Physician::see_patient()
+const int Physician::see_patient()
 {
-	p_pt->will_see_you_now();
+	//p_pt->will_see_you_now();
+	const int x = 1;
+	return x;
 }
 void Physician::order_lab_tests(const int t) 
 {
 	p_rn->draw_labs();
 }
-void Physician::order_ekg() {}
-void Physician::order_imaging() {}
-void Physician::
+void Physician::order_ekg(const int) {}
+void Physician::order_imaging(const int) {}
+void Physician::order_iv_drugs(const int) {}
+void Physician::emergency_procedure(const int);
+void Physician::call_consult(const int);// = new surgeon, etc.
+void Physician::admit_to_hospital();
+void Physician::pronounce_death();
 
 
 
