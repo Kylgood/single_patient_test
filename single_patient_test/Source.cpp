@@ -79,7 +79,7 @@ public:
 	void set_last_po(unsigned int n);
 	void end_program(); 
 	void set_complaint(const int);
-	int will_see_you_now();
+	void will_see_you_now();
 
 	
 };
@@ -168,7 +168,7 @@ int main()
 
 }
 
-//class Generator definitions
+//Generators attempt to simulate vitals signs for testing purposes
 Generators::Generators() 
 {}
 const int Generators::sys_gen() 
@@ -354,9 +354,12 @@ void Patient::set_complaint(const int com)
 		end_program();
 	}
 }
-int Patient::will_see_you_now()
+void Patient::will_see_you_now()
 {
-	return 1;
+	if (complaint == 3)
+	{
+
+	}
 	
 }
 
@@ -443,7 +446,7 @@ void Nurse::triage()
 
 	//next step depends on acuity:
 	std::cout << "Your chart has been updated.  Thank you for your patience while we find an available room in the department." << std::endl;
-	std::cout << "You may return to the waiting room.  The nurse will call you." << std::endl;
+	
 
 	
 }
@@ -458,7 +461,10 @@ int Physician::see_patient()
 {
 	return (p_pt->will_see_you_now());
 }
-void Physician::order_lab_tests(const int t) {}
+void Physician::order_lab_tests(const int t) 
+{
+	p_rn->draw_labs();
+}
 
 
 
