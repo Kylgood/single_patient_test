@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <random>
+#include <ctime>
 
 //Healthcare "data" class declarations
 
@@ -21,6 +22,7 @@ public:
 	const int resp_gen();
 	const float temp_gen();
 	const int loc_gen();
+	std::string time_gen();
 };
 
 class Vitals {
@@ -33,16 +35,18 @@ private:
 	int resps;
 	float temp;
 	int loc;
+	std::string time_taken;
 	
 	
 public:
-	Vitals(const int, const int, const int, const int, const float, const int);
+	Vitals(const int, const int, const int, const int, const float, const int, std::string);
 	const int show_heart();
 	const int show_resps();
 	const int show_systolic();
 	const int show_diastolic();
 	const int show_loc();
 	const float show_temp();
+	std::string show_time();
 	//construct a new set of vitals with constructor function and 
     //integer arguments in proper order for 
 	//systolic, diastolic, pulse, resps, temp, LOC
@@ -115,7 +119,7 @@ private:
 	
 public:
 	Physician(Patient*, Nurse*);
-	int see_patient();
+	void see_patient();
 	void order_lab_tests(const int);
 	void order_imaging(const int);
 	void order_iv_drugs(const int);
@@ -125,26 +129,6 @@ public:
 	void pronounce_death();
 };
 
-/*//SPECIALISTS
-class Surgeon : public Physician
-{
-public:
-	Surgeon();
-	void reduce_and_cast_fracture();
-	void remove_foreign_body();
-	void goto_operating_room();
-
-
-};
-
-class Anesthesio : public Physician
-{
-public:
-	Anesthesio();
-	void intubate_advanced();
-	void give_anesthesia();
-	void give_analgesia();
-};
 
 class Psychiatrist : public Physician
 {
@@ -154,7 +138,7 @@ public:
 	void prescribe();
 
 };
-*/
+
 
 int main()
 {
@@ -229,10 +213,25 @@ const int Generators::loc_gen()
 
 	return final;
 }
+std::string Generators::time_gen() 
+{
+	time_t now = time(0); // Get current time
+	char buffer[26];
+
+	if (ctime_s(buffer, sizeof(buffer), &now) == 0) {
+		return buffer;
+	}
+	else
+	{
+		std::string error = "Error recording time.";
+		return error;
+	}
+}
+
 
 //class Vitals definitions
-Vitals::Vitals(const int sys, const int dia, const int hr, const int rr, const float t, const int lc) //systolic, diastolic, heart rate, resp, temp, level conciousness
-	:systolic(sys), diastolic(dia), pulse(hr), resps(rr), temp(t), loc(lc)
+Vitals::Vitals(const int sys, const int dia, const int hr, const int rr, const float t, const int lc, std::string t) //systolic, diastolic, heart rate, resp, temp, level conciousness
+	:systolic(sys), diastolic(dia), pulse(hr), resps(rr), temp(t), loc(lc), time_taken(t)
 {
 	
 }
@@ -261,6 +260,12 @@ const float Vitals::show_temp()
 {
 	return Vitals::temp;
 }
+std::string Vitals::show_time() {
+	
+	return time_taken;
+
+
+}
 
 //class Chart definitions
 Chart::Chart() {}
@@ -272,12 +277,14 @@ void Chart::print_chart()
 {
 	for (auto i : chart)
 	{
-		std::cout << i->show_heart() << std::endl;
-		std::cout << i->show_resps() << std::endl;
-		std::cout << i->show_systolic() << std::endl;
-		std::cout << i->show_diastolic() << std::endl;
-		std::cout << i->show_loc() << std::endl;
-		std::cout << i->show_temp() << std::endl;
+		std::cout << std::endl;
+		std::cout << i->show_time() << std::endl;
+		std::cout << "Heart Rate: " << i->show_heart() << std::endl;
+		std::cout << "Respiration Rate: " << i->show_resps() << std::endl;
+		std::cout << "Blood Pressure: " << i->show_systolic() << "/" << i->show_diastolic() << std::endl;
+		std::cout << "Level of Consciousness: " << i->show_loc() << "/15" << std::endl;
+		std::cout << i->show_temp() << " degrees Celsius" << std::endl;
+		
 	}
 	
 	
@@ -356,10 +363,10 @@ void Patient::set_complaint(const int com)
 }
 void Patient::will_see_you_now()
 {
-	if (complaint == 3)
-	{
+	//if (complaint == 3)
+	//{
 
-	}
+	//}
 	
 }
 
@@ -457,9 +464,9 @@ Physician::Physician(Patient* pt, Nurse* rn)
 	:Provider(pt), p_rn(rn)
 {
 }
-int Physician::see_patient() 
+void Physician::see_patient() 
 {
-	return (p_pt->will_see_you_now());
+	p_pt->will_see_you_now();
 }
 void Physician::order_lab_tests(const int t) 
 {
