@@ -128,7 +128,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="chart.cpp" />
+    <ClCompile Include="generators.cpp" />
+    <ClCompile Include="Nurse.cpp" />
+    <ClCompile Include="Patient.cpp" />
+    <ClCompile Include="Physician.cpp" />
+    <ClCompile Include="Provider.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="vitals.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="chart.h" />
+    <ClInclude Include="generators.h" />
+    <ClInclude Include="Nurse.h" />
+    <ClInclude Include="Patient.h" />
+    <ClInclude Include="Physician.h" />
+    <ClInclude Include="Provider.h" />
+    <ClInclude Include="vitals.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
