@@ -1,4 +1,6 @@
+#include <iostream>
 #include "chart.h"
+
 
 //class Chart definitions
 

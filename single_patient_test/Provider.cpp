@@ -15,7 +15,9 @@ void Provider::take_vital_signs()
 	const int resp = p_pt->p_gen->resp_gen();
 	const float temp = p_pt->p_gen->temp_gen();
 	const int loc = p_pt->p_gen->loc_gen();
-	Vitals* s = new Vitals(systolic, diastolic, pulse, resp, temp, loc);
+	std::string timestamp = p_pt->p_gen->time_gen();
+
+	Vitals* s = new Vitals(systolic, diastolic, pulse, resp, temp, loc, timestamp);
 	p_pt->p_ch->update_chart(s);
 }
 void Provider::chart_report()
