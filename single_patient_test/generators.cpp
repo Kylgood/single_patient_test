@@ -57,6 +57,18 @@ const float Generators::temp_gen()
 
 	return final;
 }
+
+const int Generators::ox_gen()
+{
+	std::uniform_int_distribution<unsigned> ox_range(75, 100);
+	std::default_random_engine ox;
+	int k = ox_range(ox);
+	const int final = k;
+
+	return final;
+
+
+}
 const int Generators::loc_gen()
 {
 	std::uniform_int_distribution<unsigned> loc_range(3, 15);

@@ -26,7 +26,7 @@ public:
 	void set_last_po(unsigned int n);
 	void end_program();
 	void set_complaint(const int);
-	void will_see_you_now();
+	int show_complaint();
 	void print_demographics();
 
 

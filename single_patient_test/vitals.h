@@ -11,17 +11,19 @@ private:
 	int pulse;
 	int resps;
 	float temp;
+	int o2_sat;
 	int loc;
 	std::string time_taken;
 
 
 public:
-	Vitals(const int, const int, const int, const int, const float, const int, std::string);
+	Vitals(const int, const int, const int, const int, const float, const int, const int, std::string);
 	const int show_heart();
 	const int show_resps();
 	const int show_systolic();
 	const int show_diastolic();
 	const int show_loc();
+	const int show_o2_sat();
 	const float show_temp();
 	std::string show_time();
 	//construct a new set of vitals with constructor function and 

@@ -32,13 +32,12 @@ int Patient::chief_complaint()
 	std::cout << "2 - You are having trouble breathing or you are choking." << std::endl;
 	std::cout << "3 - You have severe abdominal pain with or without nausea, vomiting, diarrhea." << std::endl;
 	std::cout << "4 - You have a severe headache, vision changes, hearing loss, speech changes, or sudden weakness." << std::endl;
-	std::cout << "6 - You were in a vehicular accident." << std::endl;
-	std::cout << "7 - You think you might hurt or kill yourself." << std::endl;
-	std::cout << "8 - You have a laceration or a nosebleed." << std::endl;
-	std::cout << "9 - You were physically or sexually assaulted." << std::endl;
-	std::cout << "10 - You fell or something hit you." << std::endl;
-	std::cout << "11 - You just feel very sick, and at-home treatment is not working." << std::endl;
-	std::cout << "12 - You do not know what is wrong, but you need help." << std::endl;
+	std::cout << "5 - You were in a vehicular accident." << std::endl;
+	std::cout << "6 - You think you might hurt or kill yourself." << std::endl;
+	std::cout << "7 - You have a laceration or a nosebleed." << std::endl;
+	std::cout << "8 - You were physically or sexually assaulted." << std::endl;
+	std::cout << "9 - You fell or something hit you." << std::endl;
+	std::cout << "10 - You do not know what is wrong, but you need help." << std::endl;
 	std::cin >> input;
 	while (input <= 0 || input > 12)
 	{
@@ -90,14 +89,9 @@ void Patient::set_complaint(const int com)
 		end_program();
 	}
 }
-void Patient::will_see_you_now()
-{//stdcout the physician has seen you
-	//part educational explain the equipment part entertainment
-	//if (complaint == 3)
-	//{
-
-	//}
-
+int Patient::show_complaint()
+{
+	return complaint;
 }
 void Patient::print_demographics()
 {

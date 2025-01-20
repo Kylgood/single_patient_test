@@ -18,8 +18,11 @@ void Chart::print_chart()
 		std::cout << "Heart Rate: " << i->show_heart() << std::endl;
 		std::cout << "Respiration Rate: " << i->show_resps() << std::endl;
 		std::cout << "Blood Pressure: " << i->show_systolic() << "/" << i->show_diastolic() << std::endl;
+		std::cout << "Temperature: " << i->show_temp() << " degrees Celsius" << std::endl;
+		std::cout << "Oxygen Saturation: " << i->show_o2_sat() << " percent" << std::endl;
 		std::cout << "Level of Consciousness: " << i->show_loc() << "/15" << std::endl;
-		std::cout << i->show_temp() << " degrees Celsius" << std::endl;
+
+		
 
 	}
 

@@ -9,8 +9,24 @@ private:
 
 public:
 	Physician(Patient*, Nurse*);
-	const int see_patient();
+	void see_patient();
+
+	//workups
+	void cardiac_workup();
+	void respiratory_workup();
+	void gastro_workup();
+	void neuro_workup();
+	void psych_workup();
+	void trauma_workup();
+	void laceration_workup();
+	void assault_workup();
+	void medical_workup();
+
+
+
+	//these go inside other functions
 	void order_lab_tests(const int);
+	void order_oxygen();
 	void order_imaging(const int);
 	void order_ekg(const int);
 	void order_iv_drugs(const int);

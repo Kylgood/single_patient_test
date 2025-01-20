@@ -11,6 +11,7 @@ public:
 	const int pulse_gen();
 	const int resp_gen();
 	const float temp_gen();
+	const int ox_gen();
 	const int loc_gen();
 	std::string time_gen();
 };
