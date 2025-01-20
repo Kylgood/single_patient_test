@@ -90,8 +90,9 @@ void Nurse::triage()
 	std::cout << "Your chart has been updated.  Thank you for your patience while we find an available room in the department." << std::endl;
 
 }
-void Nurse::draw_labs(const int dx) {}
-void Nurse::give_oxygen() {}
-void Nurse::place_iv() {}
+void Nurse::draw_labs(const std::string test) {}
+void Nurse::give_oxygen(const std::string lpm, const std::string mask) {}
+void Nurse::place_iv_give_drugs(const std::string drugs) {}
 void Nurse::perform_ekg() {}
 void Nurse::pass_report() {}
+void Nurse::discharge() {}
