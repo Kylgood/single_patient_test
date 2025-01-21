@@ -15,7 +15,7 @@ public:
 	//workups
 	void cardiac_workup();
 	void respiratory_workup();
-	void gastro_workup();
+	void abd_workup();
 	void neuro_workup();
 	void psych_workup();
 	void trauma_workup();
@@ -27,12 +27,13 @@ public:
 
 	//these go inside other functions
 	void order_lab_tests(const std::string test);
-	void order_oxygen(const std::string lpm, const std::string mask);
+	void order_oxygen();
 	void order_imaging(const std::string method);
 	void order_ekg();
+	void order_iv_drugs(const std::string drug);
 	void order_iv_drugs(const std::string drug1, const std::string drug2);
 	void emergency_procedure(const int);
 	void call_consult(const std::string specialist);// = new surgeon, etc.
 	void admit_to_hospital(const std::string reason);
-	void pronounce_death(/*time of death?*/);
+	//void pronounce_death(/*time of death?*/);
 };

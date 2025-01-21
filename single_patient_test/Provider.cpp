@@ -3,8 +3,8 @@
 //base class Provider definitions
 
 
-Provider::Provider(Patient* p)
-	:p_pt(p)
+Provider::Provider(Patient* p, Chart* c)
+	:p_pt(p), p_chart(c)
 {}
 void Provider::take_vital_signs()
 {

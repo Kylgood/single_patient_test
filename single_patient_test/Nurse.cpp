@@ -6,8 +6,8 @@
 //derived class Nurse definitions
 
 
-Nurse::Nurse(Patient* q)
-	:Provider(q)
+Nurse::Nurse(Patient* q, Chart* c)
+	:Provider(q, c)
 {}
 void Nurse::triage()
 {
@@ -90,9 +90,56 @@ void Nurse::triage()
 	std::cout << "Your chart has been updated.  Thank you for your patience while we find an available room in the department." << std::endl;
 
 }
-void Nurse::draw_labs(const std::string test) {}
-void Nurse::give_oxygen(const std::string lpm, const std::string mask) {}
-void Nurse::place_iv_give_drugs(const std::string drugs) {}
-void Nurse::perform_ekg() {}
-void Nurse::pass_report() {}
-void Nurse::discharge() {}
+void Nurse::draw_labs(const std::string test) 
+{
+	if (test == "cerebrospinal fluid")
+	{
+		std::cout << "The physician will need to do a special procedure called a lumbar puncture to draw some of your cerebrospinal fluid."
+			<< "cerebrospinal fluid is a normally clear fluid which is circulated through your spinal cord and fills the ventricles of your brain."
+			<< "It provides cushioning and nourishment exclusive to the central nervous system."
+			<< "The physician will numb an area in the small of your back, between the protuberances of two of the lumbar vertebrae, and"
+			<< " push a sterile needle to the center of your spinal cord.  The opening inside the hollow needle will fill with your "
+			<< "cerebrospinal fluid, and the physician will collect a small amount in vials.  If the fluid is cloudy or bloody,"
+			<< " it indicates dangerous inflammation in the central nervous system and/or possible brain swelling from injury or infection." << std::endl;
+	}
+	if (test == "sexual assault panel")
+		std::cout << "The nurse will draw labs relevant to sexual assault and ask you to provide a urine sample.  If applicable, a pregnancy test done on this urine." << std::endl;
+	std::cout << "Prophylactic (medically preventive) sexually transmitted infection treatment will also be offered." << std::endl;
+	std::cout << "A social worker and counselor will be summoned to help you deal with this crisis emotionally and psychologically." << std::endl;
+	else
+	{
+		std::cout << "Your nurse will now draw the blood for the " << test << " studies and send the vials to the lab for analysis." << std::endl;
+	}
+	
+}
+void Nurse::give_oxygen() 
+{
+	std::cout << "The nurse is placing a nonrebreather oxygen mask on your face, "
+		<< " at a rate of 12 liters per minute." << std::endl;
+}
+void Nurse::give_iv_drugs(const std::string drugs) 
+{
+	std::cout << "The nurse is placing an IV in your arm and giving you " << drugs << " as ordered by the physician."
+}
+void Nurse::give_iv_drugs(const std::string drug1, const std::string drug2) 
+{
+	std::cout << "The nurse is placing an IV in your arm and giving you " << drug1 << " as ordered by the physician."
+		<< "The nurse will also give you hydration fluids for general support, including " << drug2 << "." << std::endl;
+}
+void Nurse::perform_ekg() 
+{
+	std::cout << "The nurse is now placing electrodes in a specific conformation on your skin to measure the signals from your heart.  Six electrodes will go on the left side of your torso,"
+		<< "where the strongest part of your heart is, and one electrode will go on each arm and leg.  The ten electrodes, if read in different sequences, will allow"
+		<< " the EKG equipment to capture the electrical pattern of your heart muscle from several different angles."
+		<< "You will not feel any pain or other sensation from the machine during this procedure." << std::endl;
+}
+void Nurse::pass_report()
+{
+	std::cout << "The nurse is calling report upstairs, which means the nurse is passing a verbal summary of your condition and profile to the nurse counterpart"
+		<< "on one of the inpatient floors of this hospital, where your stay will be.  A staff member will bring you upstairs shortly." << std::endl;
+}
+void Nurse::discharge() 
+{
+	std::cout << "The nurse has given you your discharge paperwork and you are cleared to go home.  Here is a copy of the chart from your visit." << std::endl;
+	chart_report();
+}
