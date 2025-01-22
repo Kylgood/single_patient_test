@@ -6,7 +6,7 @@ class Physician : public Provider
 {
 private:
 	Nurse* p_rn;
-	std::string explanation;
+	
 
 public:
 	Physician(Patient*, Nurse*);
@@ -19,7 +19,6 @@ public:
 	void neuro_workup();
 	void psych_workup();
 	void trauma_workup();
-	void laceration_workup();
 	void assault_workup();
 	void medical_workup();
 
@@ -32,8 +31,10 @@ public:
 	void order_ekg();
 	void order_iv_drugs(const std::string drug);
 	void order_iv_drugs(const std::string drug1, const std::string drug2);
-	void emergency_procedure(const int);
+	void explanation(const std::string proc);
+	void emergency_procedure(const std::string w);
 	void call_consult(const std::string specialist);// = new surgeon, etc.
 	void admit_to_hospital(const std::string reason);
+	
 	//void pronounce_death(/*time of death?*/);
 };

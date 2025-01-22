@@ -4,10 +4,9 @@ class Provider
 {
 protected:
 	Patient* p_pt;
-	Chart* p_chart;
 public:
 
-	Provider(Patient*, Chart*);
+	Provider(Patient*);
 	void take_vital_signs();
 	void chart_report();
 

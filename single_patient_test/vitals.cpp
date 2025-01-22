@@ -2,8 +2,8 @@
 
 //class Vitals definitions
 
-Vitals::Vitals(const int sys, const int dia, const int hr, const int rr, const float t, const int ox, const int lc, std::string t) //systolic, diastolic, heart rate, resp, temp, level conciousness
-	:systolic(sys), diastolic(dia), pulse(hr), resps(rr), temp(t), o2_sat(ox), loc(lc), time_taken(t)
+Vitals::Vitals(const int sys, const int dia, const int hr, const int rr, const float t, const int ox, const int lc, std::string clock) //systolic, diastolic, heart rate, resp, temp, level conciousness
+	:systolic(sys), diastolic(dia), pulse(hr), resps(rr), temp(t), o2_sat(ox), loc(lc), time_taken(clock)
 {
 
 }
