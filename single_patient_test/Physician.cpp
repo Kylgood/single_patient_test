@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "Physician.h"
 
@@ -10,7 +11,7 @@ Physician::Physician(Patient* pt, Nurse* rn)
 }
 void Physician::see_patient()
 {
-	const int help = p_pt->show_complaint();
+	int help = p_pt->show_complaint();
 
 	switch (help)
 	{
@@ -35,7 +36,7 @@ void Physician::see_patient()
 	case 7:
 		assault_workup();
 		break;
-	case 9:
+	case 8:
 		medical_workup();
 		break;
 	default:
@@ -69,7 +70,7 @@ void Physician::abd_workup()
 	order_imaging("x-ray");
 	order_lab_tests("Complete Blood Count, Electrolytes, Lipase");
 	order_iv_drugs("normal_saline");
-	p_rn->discharge();
+	//p_rn->discharge();
 
 }
 void Physician::neuro_workup() 
@@ -118,7 +119,7 @@ void Physician::medical_workup()
 
 
 //these go inside other functions
-void Physician::order_lab_tests(const std::string test)
+void Physician::order_lab_tests(std::string test)
 {
 	p_rn->draw_labs(test);
 	std::cout << "Your ER physician has ordered your nurse to draw some of your blood. " << std::endl;
@@ -146,7 +147,7 @@ void Physician::order_ekg()
 	std::cout << " Problems with your heart muscle, which disrupt this electrical activity, " << std::endl;
 	std::cout << " can cause serious heart problems and even psychiatric symptoms. " << std::endl;
 }
-void Physician::order_imaging(const std::string method) 
+void Physician::order_imaging(std::string method) 
 {
 	std::cout << "A staff person will be taking you to the Radiology department. Your ER physician " << std::endl;
 	std::cout << "has ordered " << method << " imaging to help look for the cause of your problem." << std::endl;
@@ -173,19 +174,19 @@ void Physician::order_imaging(const std::string method)
 	}
 
 }
-void Physician::order_iv_drugs(const std::string drug)
+void Physician::order_iv_drugs( std::string drug)
 {
 	std::cout << "The ER physician is ordering " << drug << " to be given intravenously to help treat your problem. " << std::endl;
 	p_rn->give_iv_drugs(drug);
 }
-void Physician::order_iv_drugs(const std::string drug1, const std::string drug2) 
+void Physician::order_iv_drugs(std::string drug1,  std::string drug2) 
 {
 	/*if medication == listed allergic medication*/
 	std::cout << "The ER physician is ordering " << drug1 << " to be given intravenously to help treat your problem. " << std::endl;
 	std::cout << drug2 << " will also be given intravenously to treat the symptoms associated with your problem. " << std::endl;
 	p_rn->give_iv_drugs(drug1, drug2);
 }
-void Physician::explanation(const std::string proc)
+void Physician::explanation( std::string proc)
 {
 	if (proc == "cardiac arrest")
 	{
@@ -225,7 +226,7 @@ void Physician::explanation(const std::string proc)
 	}
 }
 
-void Physician::emergency_procedure(const std::string w)
+void Physician::emergency_procedure(std::string w)
 {
 	if (w == "cardiac arrest")
 	{
@@ -249,11 +250,11 @@ void Physician::emergency_procedure(const std::string w)
 	}
 
 }
-void Physician::call_consult(const std::string specialist) 
+void Physician::call_consult( std::string specialist) 
 {
 	std::cout << "Your ER physician is paging the " << specialist << " on call to evaluate you." << std::endl;
 }// = new surgeon, etc.
-void Physician::admit_to_hospital(const std::string reason)
+void Physician::admit_to_hospital( std::string reason)
 {
 	std::cout << "Your ER physician is admitting you to the hospital for " << reason << "." << std::endl;
 	std::cout << "An extended stay in the hospital will ensure that you respond well to the treatments you are receiving. " << std::endl;

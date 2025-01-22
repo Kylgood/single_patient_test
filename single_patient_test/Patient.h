@@ -2,6 +2,7 @@
 #include "generators.h"
 #include "vitals.h"
 #include "chart.h"
+#include <string>
 class Patient
 {
 private:
@@ -25,7 +26,7 @@ public:
 	void set_meds(std::string s);
 	void set_last_po(unsigned int n);
 	void end_program();
-	void set_complaint(const int);
+	void set_complaint( int);
 	int show_complaint();
 	void print_demographics();
 

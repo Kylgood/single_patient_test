@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 
 class Vitals {
@@ -17,14 +16,14 @@ private:
 
 
 public:
-	Vitals(const int, const int, const int, const int, const float, const int, const int, std::string);
-	const int show_heart();
-	const int show_resps();
-	const int show_systolic();
-	const int show_diastolic();
-	const int show_loc();
-	const int show_o2_sat();
-	const float show_temp();
+	Vitals(int,  int, int,int,  float, int,  int, std::string);
+    int show_heart();
+	int show_resps();
+	int show_systolic();
+	int show_diastolic();
+	int show_loc();
+	int show_o2_sat();
+	float show_temp();
 	std::string show_time();
 	//construct a new set of vitals with constructor function and 
 	//integer arguments in proper order for 

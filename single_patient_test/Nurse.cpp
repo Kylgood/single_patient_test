@@ -1,3 +1,5 @@
+
+
 #include <iostream>
 #include <sstream>
 #include "Nurse.h"
@@ -88,7 +90,7 @@ void Nurse::triage()
 	std::cout << "Your chart has been updated.  Thank you for your patience while we find an available room in the department. " << std::endl;
 
 }
-void Nurse::draw_labs(const std::string test) 
+void Nurse::draw_labs( std::string test) 
 {
 	if (test == "cerebrospinal fluid")
 	{
@@ -117,11 +119,11 @@ void Nurse::give_oxygen()
 	std::cout << "The nurse is placing a nonrebreather oxygen mask on your face, " << std::endl;
 	std::cout << " at a rate of 12 liters per minute." << std::endl;
 }
-void Nurse::give_iv_drugs(const std::string drugs) 
+void Nurse::give_iv_drugs( std::string drugs) 
 {
 	std::cout << "The nurse is placing an IV in your arm and giving you " << drugs << " as ordered by the physician. " << std::endl;
 }
-void Nurse::give_iv_drugs(const std::string drug1, const std::string drug2) 
+void Nurse::give_iv_drugs( std::string drug1,  std::string drug2) 
 {
 	std::cout << "The nurse is placing an IV in your arm and giving you " << drug1 << " as ordered by the physician." << std::endl;
 	std::cout << "The nurse will also give you hydration fluids for general support, including " << drug2 << "." << std::endl;
@@ -144,6 +146,5 @@ void Nurse::pass_report()
 void Nurse::discharge() 
 {
 	std::cout << "The nurse has given you your discharge paperwork and you are cleared to go home.  Here is a copy of the chart from your visit. " << std::endl;
-	p_pt->print_demographics();
-	p_pt->p_ch->print_chart();
+	chart_report();
 }

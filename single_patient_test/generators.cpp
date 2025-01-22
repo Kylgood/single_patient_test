@@ -8,73 +8,73 @@
 
 Generators::Generators()
 {}
-const int Generators::sys_gen()
+int Generators::sys_gen()
 {
 	std::uniform_int_distribution<unsigned> sys_range(60, 200);
 	std::default_random_engine x;
 	int k = sys_range(x);
-	const int final = k;
+	int final = k;
 
 	return final;
 
 }
-const int Generators::dia_gen()
+int Generators::dia_gen()
 {
 	std::uniform_int_distribution<unsigned> dia_range(40, 90);
 	std::default_random_engine x;
 	int k = dia_range(x);
-	const int final = k;
+	int final = k;
 
 	return final;
 
 }
-const int Generators::pulse_gen()
+int Generators::pulse_gen()
 {
 	std::uniform_int_distribution<unsigned> pulse_range(40, 130);
 	std::default_random_engine x;
 	int k = pulse_range(x);
-	const int final = k;
+	int final = k;
 
 	return final;
 
 }
-const int Generators::resp_gen()
+int Generators::resp_gen()
 {
 	std::uniform_int_distribution<unsigned> resp_range(8, 30);
 	std::default_random_engine x;
 	int k = resp_range(x);
-	const int final = k;
+	int final = k;
 
 	return final;
 }
-const float Generators::temp_gen()
+ float Generators::temp_gen()
 {
 	std::uniform_real_distribution<float> temp_range(34.0, 41.0);
 	std::default_random_engine x;
 
 	float k = temp_range(x);
-	const float final = k;
+	 float final = k;
 
 	return final;
 }
 
-const int Generators::ox_gen()
+int Generators::ox_gen()
 {
 	std::uniform_int_distribution<unsigned> ox_range(75, 100);
 	std::default_random_engine ox;
 	int k = ox_range(ox);
-	const int final = k;
+	int final = k;
 
 	return final;
 
 
 }
-const int Generators::loc_gen()
+int Generators::loc_gen()
 {
 	std::uniform_int_distribution<unsigned> loc_range(3, 15);
 	std::default_random_engine x;
 	int k = loc_range(x);
-	const int final = k;
+	int final = k;
 
 	return final;
 }

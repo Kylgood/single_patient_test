@@ -22,19 +22,19 @@ public:
 	void assault_workup();
 	void medical_workup();
 
-
+	//systempause
 
 	//these go inside other functions
-	void order_lab_tests(const std::string test);
+	void order_lab_tests(std::string test);
 	void order_oxygen();
-	void order_imaging(const std::string method);
+	void order_imaging( std::string method);
 	void order_ekg();
-	void order_iv_drugs(const std::string drug);
-	void order_iv_drugs(const std::string drug1, const std::string drug2);
-	void explanation(const std::string proc);
-	void emergency_procedure(const std::string w);
-	void call_consult(const std::string specialist);// = new surgeon, etc.
-	void admit_to_hospital(const std::string reason);
+	void order_iv_drugs(std::string drug);
+	void order_iv_drugs( std::string drug1,  std::string drug2);
+	void explanation(std::string proc);
+	void emergency_procedure( std::string w);
+	void call_consult( std::string specialist);// = new surgeon, etc.
+	void admit_to_hospital( std::string reason);
 	
 	//void pronounce_death(/*time of death?*/);
 };
