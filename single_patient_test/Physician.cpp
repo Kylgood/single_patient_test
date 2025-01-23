@@ -60,17 +60,23 @@ void Physician::cardiac_workup()
 }
 void Physician::respiratory_workup() 
 {
+	auto in = " ";
+	std::cout << "Press space to continue." << std::endl;
+	std::cin >> in;
 	std::cout << "The physician has prescribed an aerosolized albuterol treatment for your respiratory problem. " << std::endl;
 	std::cout << "Albuterol will help dilate your bronchioles, allowing more air to get to your lungs. " << std::endl;
+	std::cout << "Press space to continue." << std::endl;
+	std::cin >> in;
 	std::cout << "The physician has also prescribed a steroid to reduce inflammation in your airways. " << std::endl;
 	order_iv_drugs("dexamethasone");
 	admit_to_hospital("observation");
 }
 void Physician::abd_workup() 
 {
+	auto in = " ";
 	order_imaging("x-ray");
 	order_lab_tests("Complete Blood Count, Electrolytes, Lipase");
-	order_iv_drugs("normal_saline");
+	order_iv_drugs("normal_saline"); \
 	p_rn->discharge();
 
 }
@@ -102,7 +108,7 @@ void Physician::trauma_workup()
 }
 void Physician::assault_workup() 
 {
-	order_lab_tests("sexual assault panel");
+	order_lab_tests("std screen");
 	order_iv_drugs("tylenol", "prophylaxis");
 	call_consult("gynecologist and/or social worker");
 	admit_to_hospital("observation");
@@ -123,10 +129,7 @@ void Physician::medical_workup()
 void Physician::order_lab_tests(std::string test)
 {
 	p_rn->draw_labs(test);
-	std::cout << "Your ER physician has ordered your nurse to draw some of your blood. " << std::endl;
-	std::cout << "This blood will be sent to the lab, where the concentrations of " << test << std::endl;
-	std::cout << " will be measured in that sample. Abnormal levels of " << test << ", " << std::endl;
-	std::cout << " whether abnormally high or abnormally low, can lead to your symptoms and/or problem. " << std::endl;
+	std::cout << "Abnormal levels of " << test << ", whether abnormally high or abnormally low, can lead to your symptoms and/or problem. " << std::endl;
 	
 }
 void Physician::order_oxygen() 

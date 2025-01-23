@@ -24,7 +24,8 @@ int Nurse::triage()
 	//allergies
 	std::cout << "You are next in line." << std::endl;
 	std::cout << "Answering these questions will be helpful to the nurse in the triage process: " << std::endl;
-	std::cout << "Please enter any foods or medications to which you are ALLERGIC.  If there are none, type q on a new line and press enter." << std::endl;
+	std::cout << "Please enter any foods or medications to which you are ALLERGIC." << std::endl;
+	std::cout << "If there are none, type q on a new line and press enter." << std::endl;
 	while (getline(std::cin, line_allerg))
 	{
 		if (line_allerg == "q")
@@ -54,7 +55,8 @@ int Nurse::triage()
 	}
 	std::cout << std::endl;
 	//medications
-	std::cout << "Please list any medications you are CURRENTLY TAKING. If there are none, type q on a new line and press enter. " << std::endl;
+	std::cout << "Please list any medications you are CURRENTLY TAKING. " << std::endl;
+	std::cout << "If there are none, type q on a new line and press enter. " << std::endl;
 	while (getline(std::cin, line_meds))
 	{
 		if (line_meds == "q")
@@ -87,16 +89,22 @@ void Nurse::draw_labs( std::string test)
 {
 	if (test == "cerebrospinal fluid")
 	{
+		auto in = " ";
 		std::cout << "The physician will need to do a special procedure called a lumbar puncture to draw some of your cerebrospinal fluid. " << std::endl;
 		std::cout << "cerebrospinal fluid is a normally clear fluid which is circulated through your spinal cord and fills the ventricles of your brain. " << std::endl;
 		std::cout << "It provides cushioning and nourishment exclusive to the central nervous system. " << std::endl;
+		std::cout << "Press space to continue." << std::endl;
+		std::cin >> in;
 		std::cout << "The physician will numb an area in the small of your back, between the protuberances of two of the lumbar vertebrae, and " << std::endl;
 		std::cout << " push a sterile needle to the center of your spinal cord.  The opening inside the hollow needle will fill with your " << std::endl;
 		std::cout << "cerebrospinal fluid, and the physician will collect a small amount in vials.  If the fluid is cloudy or bloody, " << std::endl;
 		std::cout << " it indicates dangerous inflammation in the central nervous system and/or possible brain swelling from injury or infection. " << std::endl;
+		std::cin >> in;
 	}
-	if (test == "sexual assault panel")
+	if (test == "std screen")
 	{
+		std::cout << "Press space to continue" << std::endl;
+		auto in = " ";
 		std::cout << "The nurse will draw labs relevant to sexual assault and ask you to provide a urine sample.  If applicable, a pregnancy test done on this urine. " << std::endl;
 		std::cout << "Prophylactic (medically preventive) sexually transmitted infection treatment will also be offered." << std::endl;
 		std::cout << "A social worker and counselor will be summoned to help you deal with this crisis emotionally and psychologically. " << std::endl;
@@ -104,43 +112,71 @@ void Nurse::draw_labs( std::string test)
 	else
 	{
 		std::cout << "Your nurse will now draw the blood for the " << test << " studies and send the vials to the lab for analysis. " << std::endl;
+		auto in = " ";
+		std::cout << "Press space to continue" << std::endl;
 	}
 	
 }
 void Nurse::give_oxygen() 
 {
+	auto in = " ";
 	std::cout << "The nurse is placing a nonrebreather oxygen mask on your face, " << std::endl;
 	std::cout << " at a rate of 12 liters per minute." << std::endl;
+	std::cout << "Press space to continue." << std::endl;
+	std::cin >> in;
+	std::cout << " Normal room air is a mixture composed mostly of oxygen and nitrogen." << std::endl;
+	std::cout << "We breathe the air in and our lungs take the oxygen from this mixture." << std::endl;
+	std::cin >> in;
+	std::cout << "Using a tank full of pure oxygen and delivered with a mask and connecting tube, " << std::endl;
+	std::cout << "we can maximize the nourishment which the cells of your body receive with each breath." << std::endl;
+
 }
 void Nurse::give_iv_drugs( std::string drugs) 
 {
+	auto in = " ";
 	std::cout << "The nurse is placing an IV in your arm and giving you " << drugs << " as ordered by the physician. " << std::endl;
+	std::cout << "Press space to continue." << std::endl;
+	std::cin >> in;
 }
 
 void Nurse::give_iv_drugs( std::string drug1,  std::string drug2) 
 {
+	auto in = " ";
 	std::cout << "The nurse is placing an IV in your arm and giving you " << drug1 << " as ordered by the physician." << std::endl;
 	std::cout << "The nurse will also give you hydration fluids for general support, including " << drug2 << "." << std::endl;
+	std::cout << "Press space to continue" << std::endl;
+	std::cin >> in;
 }
 void Nurse::perform_ekg() 
 {
+	auto in = " ";
 	std::cout << "The nurse is now placing electrodes in a specific conformation on your skin to measure the signals from your heart. " << std::endl;
+	std::cout << "Press space to continue." << std::endl;
+	std::cin >> in;
 	std::cout << "Six electrodes will go on the left side of your torso, " << std::endl;
 	std::cout << "where the strongest part of your heart is, and one electrode will go on each arm and leg. " << std::endl;
 	std::cout << "The ten electrodes, if read in different sequences, will allow " << std::endl;
 	std::cout << " the EKG equipment to capture the electrical pattern of your heart muscle from several different angles. " << std::endl;
 	std::cout << "You will not feel any pain or other sensation from the machine during this procedure. " << std::endl;
+	std::cout << "Press space to continue." << std::endl;
+	std::cin >> in;
 }
 void Nurse::pass_report()
 {
+	auto in = " ";
 	std::cout << "The nurse is calling report upstairs, which means the nurse is passing a " << std::endl;
 	std::cout << "verbal summary of your condition and profile to the nurse counterpart " << std::endl;
 	std::cout << "on one of the inpatient floors of this hospital, where your stay will be.  A staff member will bring you upstairs shortly. " << std::endl;
+	std::cout << "Press space to continue." << std::endl;
+	std::cin >> in;
 	std::cout << "Here is your chart: " << std::endl;
 	chart_report();
 }
 void Nurse::discharge() 
 {
+	auto in = " ";
+	std::cout << "Press space to continue." << std::endl;
+	std::cin >> in;
 	std::cout << "The nurse has given you your discharge paperwork and you are cleared to go home.  Here is a copy of the chart from your visit. " << std::endl;
 	chart_report();
 }
