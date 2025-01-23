@@ -1,7 +1,7 @@
 //EMERGENCY ROOM SINGLE PATIENT EXPERIENCE
 //by Kyle Goodale
 //CS50 Final Project
-//part educational (ex: explain what a nonrebreather is)
+//part educational 
 //part entertainment
 #pragma once
 #include <random>
