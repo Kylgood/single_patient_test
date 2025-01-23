@@ -3,12 +3,12 @@
 
 //class Vitals definitions
 
-Vitals::Vitals(int sys,int dia, int hr,int rr,float t,  int ox,  int lc, std::string clock) //systolic, diastolic, heart rate, resp, temp, level conciousness
+Vitals::Vitals(int sys, int dia, int hr, int rr, float t, int ox, int lc, std::string clock) //systolic, diastolic, heart rate, resp, temp, level conciousness
 	:systolic(sys), diastolic(dia), pulse(hr), resps(rr), temp(t), o2_sat(ox), loc(lc), time_taken(clock)
 {
 
 }
- int Vitals::show_heart()
+int Vitals::show_heart()
 {
 	return Vitals::pulse;
 

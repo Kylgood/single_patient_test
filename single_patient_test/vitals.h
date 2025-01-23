@@ -16,7 +16,7 @@ private:
 
 
 public:
-	Vitals(int,  int, int,int,  float, int,  int, std::string);
+	Vitals(int, int, int, int, float, int, int, std::string);
     int show_heart();
 	int show_resps();
 	int show_systolic();

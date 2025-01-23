@@ -81,14 +81,7 @@ void Nurse::triage()
 		
 	}
 	p_pt->set_last_po(last_po);
-
-	//now take the first set of vital signs:
-	std::cout << "The nurse will now take a first set of vital signs. " << std::endl;
-	take_vital_signs();
-
-	//next step depends on acuity:
-	std::cout << "Your chart has been updated.  Thank you for your patience while we find an available room in the department. " << std::endl;
-
+	
 }
 void Nurse::draw_labs( std::string test) 
 {
@@ -123,6 +116,7 @@ void Nurse::give_iv_drugs( std::string drugs)
 {
 	std::cout << "The nurse is placing an IV in your arm and giving you " << drugs << " as ordered by the physician. " << std::endl;
 }
+
 void Nurse::give_iv_drugs( std::string drug1,  std::string drug2) 
 {
 	std::cout << "The nurse is placing an IV in your arm and giving you " << drug1 << " as ordered by the physician." << std::endl;
@@ -142,6 +136,8 @@ void Nurse::pass_report()
 	std::cout << "The nurse is calling report upstairs, which means the nurse is passing a " << std::endl;
 	std::cout << "verbal summary of your condition and profile to the nurse counterpart " << std::endl;
 	std::cout << "on one of the inpatient floors of this hospital, where your stay will be.  A staff member will bring you upstairs shortly. " << std::endl;
+	std::cout << "Here is your chart: " << std::endl;
+	chart_report();
 }
 void Nurse::discharge() 
 {

@@ -51,12 +51,12 @@ void Physician::see_patient()
 }
 
 void Physician::cardiac_workup() 
-{
-	
+{	
 	order_oxygen();
 	order_ekg();
 	order_lab_tests("troponin");
 	order_iv_drugs("normal saline", "beta blocker");
+	admit_to_hospital("observation");
 }
 void Physician::respiratory_workup() 
 {
@@ -64,13 +64,14 @@ void Physician::respiratory_workup()
 	std::cout << "Albuterol will help dilate your bronchioles, allowing more air to get to your lungs. " << std::endl;
 	std::cout << "The physician has also prescribed a steroid to reduce inflammation in your airways. " << std::endl;
 	order_iv_drugs("dexamethasone");
+	admit_to_hospital("observation");
 }
 void Physician::abd_workup() 
 {
 	order_imaging("x-ray");
 	order_lab_tests("Complete Blood Count, Electrolytes, Lipase");
 	order_iv_drugs("normal_saline");
-	//p_rn->discharge();
+	p_rn->discharge();
 
 }
 void Physician::neuro_workup() 
