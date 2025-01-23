@@ -5,7 +5,7 @@ class Nurse : public Provider
 
 public:
 	Nurse(Patient*);
-	void triage();
+	int triage();
 	void draw_labs(std::string test);
 	void give_oxygen();
 	void give_iv_drugs(std::string drugs);

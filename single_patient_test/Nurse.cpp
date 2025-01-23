@@ -11,7 +11,7 @@
 Nurse::Nurse(Patient* q)
 	:Provider(q)
 {}
-void Nurse::triage()
+int Nurse::triage()
 {
 	std::string line_allerg;
 	std::string line_vax;
@@ -81,7 +81,7 @@ void Nurse::triage()
 		
 	}
 	p_pt->set_last_po(last_po);
-	
+	return last_po;
 }
 void Nurse::draw_labs( std::string test) 
 {
