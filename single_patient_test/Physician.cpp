@@ -243,8 +243,10 @@ void Physician::order_lab_tests(std::string test)
 }
 void Physician::order_oxygen() 
 {
-	std::cout << "Your physician has ordered that you receive supplemental oxygen through a mask, which will ensure adequate oxygenation of your blood."
-		<< " This is essential to maintain consistent support of all the tissues of your body, especially your brain and vital organs." << std::endl;
+	std::cout << "Your physician has ordered that you receive supplemental oxygen through a mask, " << std::endl;
+	std::cout << "which will ensure adequate oxygenation of your blood." << std::endl;
+	std::cout << "his is essential to maintain consistent support of all the tissues of your body, " << std::endl;
+	std::cout << "especially your brain and vital organs." << std::endl;
 	p_rn->give_oxygen();
 }
 void Physician::order_ekg() 
