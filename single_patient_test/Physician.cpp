@@ -60,29 +60,25 @@ void Physician::cardiac_workup()
 }
 void Physician::respiratory_workup() 
 {
-	auto in = " ";
-	std::cout << "Press space to continue." << std::endl;
-	std::cin >> in;
 	std::cout << "The physician has prescribed an aerosolized albuterol treatment for your respiratory problem. " << std::endl;
 	std::cout << "Albuterol will help dilate your bronchioles, allowing more air to get to your lungs. " << std::endl;
-	std::cout << "Press space to continue." << std::endl;
-	std::cin >> in;
+	pause_continue();
 	std::cout << "The physician has also prescribed a steroid to reduce inflammation in your airways. " << std::endl;
 	order_iv_drugs("dexamethasone");
 	admit_to_hospital("observation");
 }
 void Physician::abd_workup() 
 {
-	auto in = " ";
+	
 	order_imaging("x-ray");
 	order_lab_tests("Complete Blood Count, Electrolytes, Lipase");
-	order_iv_drugs("normal_saline"); \
-	p_rn->discharge();
+	order_iv_drugs("normal_saline"); 
 
 }
 void Physician::neuro_workup() 
 {
 	order_imaging("mri");
+	pause_continue();
 	order_lab_tests("cerebrospinal fluid");
 	order_iv_drugs("keppra", "toradol");
 	call_consult("neurologist");
@@ -96,12 +92,14 @@ void Physician::psych_workup()
 	order_ekg();
 	order_iv_drugs("ativan");
 	call_consult("psychiatrist");
+	pause_continue();
 	admit_to_hospital("observation");
 }
 void Physician::trauma_workup() 
 {
 	order_lab_tests("complete blood count, type and screen for possible transfusion");
 	order_imaging("ct scan");
+	pause_continue();
 	order_iv_drugs("normal saline", "platelets");
 	call_consult("surgeon");
 	admit_to_hospital("surgery");
@@ -147,6 +145,7 @@ void Physician::order_ekg()
 	std::cout << "Another way to say this is that the EKG will trace a two dimensional, " << std::endl;
 	std::cout << "carefully measured wave line " << std::endl;
 	std::cout << "which will correspond with your heart's natural electrical activity. " << std::endl;
+	pause_continue();
 	std::cout << "This electrical activity is what determines the rate, regularity, and force of your heartbeat. " << std::endl;
 	std::cout << " Problems with your heart muscle, which disrupt this electrical activity, " << std::endl;
 	std::cout << " can cause serious heart problems and even psychiatric symptoms. " << std::endl;
@@ -161,6 +160,7 @@ void Physician::order_imaging(std::string method)
 		std::cout << "through the patient onto a special receiver, " << std::endl;
 		std::cout << " the data from which can create an image based on the different rates at " << std::endl;
 		std::cout << "which different parts of the beam passed through. " << std::endl;
+		pause_continue();
 		std::cout << " This usually outlines the patient's skeletal structure in the area imaged, but also can " << std::endl;
 		std::cout << "reveal general structural features of other tissues, " << std::endl;
 		std::cout << " such as the lungs and the organs of the abdomen. " << std::endl;
@@ -174,6 +174,7 @@ void Physician::order_imaging(std::string method)
 	{
 		std::cout << "Magnetic Resonance Imaging does not use radiation, but instead uses the recorded " << std::endl;
 			std::cout << "vibrations of magnets rotating around the patient's body to create images. " << std::endl;
+			pause_continue();
 		std::cout <<"This technique can be more useful for evaluating the structures of the brain and nervous system. " << std::endl;
 	}
 
@@ -198,35 +199,75 @@ void Physician::explanation( std::string proc)
 		std::cout << "The physician is now running a 'full code' because your heart has stopped functioning properly. " << std::endl;
 		std::cout << "This means that hospital staff members are performing cardio-pulmonary rescuscitation (CPR) on you to manually pump your heart " << std::endl;
 		std::cout << " which is critical to keeping your vital organs supplied with oxygenated blood." << std::endl;
+		pause_continue();
 		std::cout << "Another physician is placing a breathing tube down your throat, since you lost consciousness when your heart stopped pumping. " << std::endl;
-		std::cout << "The physicians have ordered and the nurse is administering epinephrine to stimulate your heart." << std::endl;
+		pause_continue();
+		std::cout << "The physicians have ordered, and the nurse is administering, epinephrine to stimulate your heart." << std::endl;
+		pause_continue();
 		std::cout << "The most common types of cardiac arrest are 'asystole', 'ventricular fibrillation', and 'ventricular tachycardia.' " << std::endl;
 		std::cout << "Asystole is the partial or full absence of any electrical activity in the heart." << std::endl;
+		pause_continue();
 		std::cout << "Ventricular fibrillation is when the ventricles of the heart, which pump blood to other parts of the body, " << std::endl;
 		std::cout << "are malfunctioning due to abnormal electrical activity." << std::endl;
+		pause_continue();
 		std::cout << "Ventricular tachycardia is when the ventricles of the heart are being signaled to contract (pump) at " << std::endl;
 		std::cout << "such a high rate that not enough blood is being pumped." << std::endl;
+		pause_continue();
 		std::cout << "For V-Fib and V-Tach, a defibrillator will be charged and paddles applied to your upper right and " << std::endl;
 		std::cout << "lower left torso, to send an electrical current through" << std::endl;
 		std::cout << "your heart muscle and reset body's electrical activity, which will hopefully reset the heart rhythmn " << std::endl;
-		std::cout << std::endl;
+		pause_continue();
+		std::cout << "We got your heart into a regular rhythm.  You will need to go to the ICU but you seem to be stabilizing.  Rest easy." << std::endl;
 	}
 	if (proc == "rapid sequence intubation")
 	{
 		std::cout << "The physician will place a breathing tube directly down your trachea to ensure your lungs receive enough air. " << std::endl;
+		pause_continue();
 		std::cout << "Your body is not strong enough to take in adequate air on its own. " << std::endl;
+		std::cout << "The procedure was successful. We will take a chest X-ray to ensure that the tube is positioned properly." << std::endl;
+		std::cout << "Your situation has improved. Rest easy." << std::endl;
+		
 
 	}
 	if (proc == "cricothyroidotomy")
 	{
 		std::cout << "The physician will make a small incision on your throat and " << std::endl;
 		std::cout << "tape a large bore needle in place to deliver air directly to your trachea, " << std::endl;
-		std::cout << "bypassing your mouth and pharynx, because those structures are compromised.  Without this tube, adequate air cannot get in. " << std::endl;
+		std::cout << "bypassing your mouth and pharynx, because those structures are compromised. " << std::endl;
+		pause_continue();
+		std::cout << "Without this tube, adequate air cannot get in. " << std::endl;
+		pause_continue();
+		pause_continue();
+		pause_continue();
+		std::cout << "We have bypassed the obstruction in your throat." << std::endl;
+		std::cout << "Your oxygenation is improving. Rest easy." << std::endl;
+		
+
+		
 	}
 	if (proc == "craniotomy")
 	{
 		std::cout << "The physician will remove a piece of your skull to relieve the pressure on your brain created by pooled blood from your head injury. " << std::endl;
-		std::cout << "The pressure is interfering with your brain's ability to regulate your vital functions, and must be cleared. " << std::endl;
+		pause_continue();
+		std::cout << "The pressure from the blood is interfering with your brain's ability to regulate your vital functions, and must be cleared. " << std::endl;
+		pause_continue();
+		std::cout << "You are unconscious." << std::endl;
+		std::cout << "A neurosurgeon has been called to follow up as soon as she gets out of the OR, but your ER physician is trained in this procedure" << std::endl;
+		std::cout << "and we must move forward.  Sterile surgical drapes are being placed over your body." << std::endl;
+		pause_continue();
+		std::cout << "The area of your skull which needs to be removed is directly over the bleed.  It is covered in hair." << std::endl;
+		std::cout << "The nurse will shave this area of your head." << std::endl;
+		pause_continue();
+		std::cout << "A mixture of povidone and iodine, extremely powerful sterilizing agents, is being used to make the scalp ready for incisions." << std::endl;
+		pause_continue();
+		std::cout << "Lidocaine is being used to thoroughly numb the area." << std::endl;
+		pause_continue();
+		std::cout << "You cannot feel or read this.  There is nothing to fear." << std::endl;
+		pause_continue();
+		pause_continue();
+		pause_continue();
+		std::cout << "The procedure was successful. You will need to stay in the hospital to recover, but your prognosis looks good.  Rest easy." << std::endl;
+		
 	}
 }
 
@@ -252,6 +293,7 @@ void Physician::emergency_procedure(std::string w)
 		explanation(w);
 		p_rn->give_iv_drugs("corticosteroids, anticonvulsant drugs, prophylactic antibiotics");
 	}
+	admit_to_hospital("observation");
 
 }
 void Physician::call_consult( std::string specialist) 
@@ -261,6 +303,7 @@ void Physician::call_consult( std::string specialist)
 void Physician::admit_to_hospital( std::string reason)
 {
 	std::cout << "Your ER physician is admitting you to the hospital for " << reason << "." << std::endl;
+	pause_continue();
 	std::cout << "An extended stay in the hospital will ensure that you respond well to the treatments you are receiving. " << std::endl;
 	p_rn->pass_report();
 }

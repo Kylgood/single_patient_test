@@ -1,6 +1,7 @@
 
 #include "Provider.h"
-
+#include <iostream>
+#include <string>
 //base class Provider definitions
 
 
@@ -28,4 +29,18 @@ void Provider::chart_report()
 {
 	p_pt->print_demographics();
 	p_pt->p_ch->print_chart();
+}
+void Provider::pause_continue()
+{
+	std::string in = "1";
+	while (in != "y")
+	{
+		std::cout << "Type 'y' to continue:" << std::endl;
+		std::cin >> in;
+		if (in == " ")
+		{
+			break;
+		}
+	}
+
 }
