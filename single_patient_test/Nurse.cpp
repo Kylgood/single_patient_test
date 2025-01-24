@@ -165,7 +165,10 @@ void Nurse::pass_report()
 }
 void Nurse::discharge() 
 {
+	std::cout << "Your condition has improved enough that your life is not in danger and you will recover safely on your own!" << std::endl;
+	std::cout << "Congratulations!" << std::endl;
 	pause_continue();
 	std::cout << "The nurse has given you your discharge paperwork and you are cleared to go home.  Here is a copy of the chart from your visit. " << std::endl;
+	std::cout << "Don't forget to validate your parking at the checkout desk!" << std::endl;
 	chart_report();
 }

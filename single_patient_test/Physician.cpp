@@ -52,28 +52,97 @@ void Physician::see_patient()
 
 void Physician::cardiac_workup() 
 {	
-	order_oxygen();
-	order_ekg();
-	order_lab_tests("troponin");
-	order_iv_drugs("normal saline", "beta blocker");
-	admit_to_hospital("observation");
+	std::cout << "Does it feel like someone is sitting on your chest?" << std::endl;
+	std::string answer;
+	std::cin >> answer;
+	if (answer == "y")
+	{
+		if (p_pt->show_age() > 55 && (p_pt->show_sex() == "male" || p_pt->show_sex() == "m" || p_pt->show_sex() == "Male"))
+		{
+			emergency_procedure("cardiac arrest");
+		}
+		else
+		{
+			order_oxygen();
+			order_ekg();
+			order_lab_tests("troponin");
+			order_iv_drugs("normal saline", "beta blocker");
+			std::cout << "Your EKG is normal and your troponin result is negative." << std::endl;
+			pause_continue();
+			std::cout << "We will check for other causes." << std::endl;
+			pause_continue();
+			std::cout << "Has your pain resolved?" << std::endl;
+			std::cin >> answer;
+			if (answer == "y")
+			{
+				p_rn->discharge();
+			}
+			else
+			{
+				call_consult("psychiatrist");
+				order_iv_drugs("ativan");
+				admit_to_hospital("observation");
+			}
+
+
+		}
+	}
 }
-void Physician::respiratory_workup() 
+void Physician::respiratory_workup()
 {
-	std::cout << "The physician has prescribed an aerosolized albuterol treatment for your respiratory problem. " << std::endl;
-	std::cout << "Albuterol will help dilate your bronchioles, allowing more air to get to your lungs. " << std::endl;
-	pause_continue();
-	std::cout << "The physician has also prescribed a steroid to reduce inflammation in your airways. " << std::endl;
-	order_iv_drugs("dexamethasone");
-	admit_to_hospital("observation");
+	std::cout << "Are you having trouble breathing because something hit you in the throat and your airway has collapsed? Type 'y' for yes, 'n' for no." << std::endl;
+	std::string answer;
+	std::cin >> answer;
+	if (answer == "y")
+	{
+     	emergency_procedure("cricothyroidotomy");
+	}
+	else
+	{
+		std::cout << "The physician has prescribed an aerosolized albuterol treatment for your respiratory problem. " << std::endl;
+		std::cout << "Albuterol will help dilate your bronchioles, allowing more air to get to your lungs. " << std::endl;
+		pause_continue();
+		std::cout << "The physician has also prescribed a steroid to reduce inflammation in your airways. " << std::endl;
+		pause_continue();
+		if (p_pt->show_age() > 55 )
+		{
+			std::cout << "Your condition has deteriorated." << std::endl;
+			pause_continue();
+			emergency_procedure("rapid sequence intubation");
+		}
+		else
+		{
+			order_iv_drugs("dexamethasone");
+			pause_continue();
+			std::cout << "Your bronchiolitic episode has improved.  Your respirations are full and unlabored, and your other vitals are stable." << std::endl;
+			p_rn->discharge();
+		}
+	}
 }
 void Physician::abd_workup() 
 {
 	
 	order_imaging("x-ray");
 	order_lab_tests("Complete Blood Count, Electrolytes, Lipase");
-	order_iv_drugs("normal_saline"); 
+	order_iv_drugs("normal_saline");
+	pause_continue();
+	std::string answer;
+	std::cout << "Your abdominal x-ray and labs were negative for abnormalities." << std::endl;
+	std::cout << "Has your pain resolved?" << std::endl;
+	std::cin >> answer;
+	if (answer == "y")
+	{
+		p_rn->discharge();
+	}
+	else
+	{
+		order_imaging("ultrasound");
+		pause_continue();
+		call_consult("surgeon");
+		pause_continue();
+		admit_to_hospital("observation");
 
+	}
 }
 void Physician::neuro_workup() 
 {
@@ -82,7 +151,12 @@ void Physician::neuro_workup()
 	order_lab_tests("cerebrospinal fluid");
 	order_iv_drugs("keppra", "toradol");
 	call_consult("neurologist");
+	pause_continue();
+	std::cout << "You have meningitis and we need to treat you aggressively." << std::endl;
+	order_iv_drugs("antibiotics");
+	pause_continue();
 	admit_to_hospital("observation");
+
 	
 }
 
@@ -93,29 +167,66 @@ void Physician::psych_workup()
 	order_iv_drugs("ativan");
 	call_consult("psychiatrist");
 	pause_continue();
+	std::cout << "We want you to feel safe with a plan before you go home." << std::endl;
 	admit_to_hospital("observation");
 }
 void Physician::trauma_workup() 
 {
-	order_lab_tests("complete blood count, type and screen for possible transfusion");
+	//std::cout << "How fast were you going?" << std::endl;
+	order_lab_tests("complete blood count, type and screen");
 	order_imaging("ct scan");
 	pause_continue();
 	order_iv_drugs("normal saline", "platelets");
-	call_consult("surgeon");
-	admit_to_hospital("surgery");
+	if (p_pt->show_age() > 30 && p_pt->show_age() < 60)
+	{
+		emergency_procedure("craniotomy");
+	}
+	else
+	{
+		p_rn->discharge();
+	}
 }
 void Physician::assault_workup() 
 {
 	order_lab_tests("std screen");
 	order_iv_drugs("tylenol", "prophylaxis");
 	call_consult("gynecologist and/or social worker");
-	admit_to_hospital("observation");
+	std::cout << "The police will also be here to speak with you shortly." << std::endl;
+	pause_continue();
+	pause_continue();
+	std::string answer;
+	std::cout << "Do you feel safe enough to go home?  Type 'y' or 'n'" << std::endl;
+	if (answer == "y")
+	{
+		p_rn->discharge();
+	}
+	else
+	{
+		admit_to_hospital("observation");
+	}
 }
 void Physician::medical_workup() 
 {
 	order_lab_tests("complete blood count, inflammatory markers, metabolic panel w/blood glucose, electrolyte panel");
 	order_iv_drugs("normal saline", "antibiotics");
-	p_rn->discharge();
+	std::cout << "Have your symptoms resolved?" << std::endl;
+	std::string answer;
+	std::cin >> answer;
+	if (answer == "y" || answer == "yes")
+	{
+		p_rn->discharge();
+	}
+	else
+	{
+		order_imaging("x-ray");
+		//take_vital_signs();
+		pause_continue();
+		std::cout << "We found something on X ray." << std::endl;
+		call_consult("surgery");
+		std::cout << "You will need to go to the OR." << std::endl;
+		pause_continue();
+		admit_to_hospital("surgery");
+	}
 	
 }
 
@@ -154,6 +265,12 @@ void Physician::order_imaging(std::string method)
 {
 	std::cout << "A staff person will be taking you to the Radiology department. Your ER physician " << std::endl;
 	std::cout << "has ordered " << method << " imaging to help look for the cause of your problem." << std::endl;
+	if (method == "ultrasound")
+	{
+		std::cout << "Ultrasound is a gentle, non-invasive, fast way to image the contours of the organs in your abdomen" << std::endl;
+		std::cout << "and look for blockages, bleeding, or structural abnormalities that could be causing your symptoms." << std::endl;
+		std::cout << "Ultrasound uses sound waves passed through the surface of your affected area to create the images." << std::endl;
+	}
 	if (method == "x-ray")
 	{
 		std::cout << "X-ray films harness electromagnetic radiation and pass the beams " << std::endl;
@@ -195,6 +312,7 @@ void Physician::explanation( std::string proc)
 {
 	if (proc == "cardiac arrest")
 	{
+		
 		std::cout << std::endl;
 		std::cout << "The physician is now running a 'full code' because your heart has stopped functioning properly. " << std::endl;
 		std::cout << "This means that hospital staff members are performing cardio-pulmonary rescuscitation (CPR) on you to manually pump your heart " << std::endl;

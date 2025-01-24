@@ -11,6 +11,7 @@ private:
 	std::string first_name;
 	std::string sex_at_birth;
 	std::string dob;
+	unsigned int age;
 	std::vector<std::string> allergies;
 	std::vector<std::string> vax;
 	std::vector<std::string> meds;
@@ -27,6 +28,8 @@ public:
 	void set_last_po(unsigned int n);
 	void end_program();
 	void set_complaint( int);
+	int show_age();
+	std::string show_sex();
 	int show_complaint();
 	void print_demographics();
 

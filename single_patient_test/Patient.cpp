@@ -6,7 +6,7 @@
 //class Patient definitions
 
 Patient::Patient()
-	:complaint(0), last_po(0)
+	:complaint(0), age(0), last_po(0)
 {
 	p_ch = new Chart;
 	p_gen = new Generators;
@@ -20,10 +20,12 @@ void Patient::get_set_demographics()
 	std::cin >> first_name;
 	std::cout << "Please enter your biological sex at birth." << std::endl;
 	std::cin >> sex_at_birth;
+	std::cout << "Please enter your age." << std::endl;
+	std::cin >> age;
 	std::cout << "Please enter your date of birth.  (Format: MM/DD/YY)" << std::endl;
 	std::cin >> dob;
 }
- int Patient::chief_complaint()
+int Patient::chief_complaint()
 {
 	int count = 0;
 	int input;
@@ -76,6 +78,14 @@ void Patient::set_complaint(int com)
 		end_program();
 	}
 }
+int Patient::show_age() 
+{
+	return age;
+}
+std::string Patient::show_sex()
+{
+	return sex_at_birth;
+}
 int Patient::show_complaint()
 {
 	return complaint;
@@ -83,7 +93,9 @@ int Patient::show_complaint()
 void Patient::print_demographics()
 {
 	std::cout << "Name: " << last_name << ", " << first_name << std::endl;
+	std::cout << "Age: " << age << std::endl;
 	std::cout << "Sex at Birth: " << sex_at_birth << std::endl;
 	std::cout << "Date of Birth: " << dob << std::endl;
+	
 
 }
