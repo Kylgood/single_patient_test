@@ -62,7 +62,7 @@ void Physician::cardiac_workup()
 		order_oxygen();
 		order_ekg();
 		order_lab_tests("troponin");
-		order_iv_drugs("beta blocker");
+		order_iv_drugs("nitroglycerin", "chest pain");
 		std::cout << "Your EKG is normal and your troponin result is negative." << std::endl;
 		pause_continue();
 		std::cout << "We will check for other causes." << std::endl;
@@ -77,7 +77,7 @@ void Physician::cardiac_workup()
 		else
 		{
 			call_consult("psychiatrist");
-			order_iv_drugs("ativan");
+			order_iv_drugs("ativan", " anxiety");
 			admit_to_hospital("observation");
 		}
 
@@ -109,7 +109,7 @@ void Physician::respiratory_workup()
 		}
 		else
 		{
-			order_iv_drugs("dexamethasone");
+			order_iv_drugs("dexamethasone, a steroid", "inflammation in your lungs");
 			pause_continue();
 			std::cout << "Your bronchiolitic episode has resolved." << std::endl;
 			std::cout << "Your respirations are full and unlabored, and your other vitals are stable." << std::endl;
@@ -122,7 +122,7 @@ void Physician::abd_workup()
 
 	order_imaging("x-ray");
 	order_lab_tests("Complete Blood Count, Electrolytes, Lipase");
-	order_iv_drugs("normal_saline");
+	order_iv_drugs("normal_saline", "dehydration");
 	pause_continue();
 	std::string answer;
 	std::cout << "Your abdominal x-ray and labs were negative for abnormalities." << std::endl;
@@ -147,11 +147,12 @@ void Physician::neuro_workup()
 	order_imaging("MRI");
 	pause_continue();
 	order_lab_tests("cerebrospinal fluid");
-	order_iv_drugs("toradol");
+	order_iv_drugs("toradol", "migraine");
 	call_consult("neurologist");
 	pause_continue();
-	std::cout << "You have meningitis and we need to treat you aggressively." << std::endl;
-	order_iv_drugs("antibiotics");
+	//or
+	std::cout << "You have meningitis, an infection of the nervous system, and we need to treat you aggressively." << std::endl;
+	order_iv_drugs("antibiotics", "infection");
 	pause_continue();
 	admit_to_hospital("observation");
 
@@ -162,7 +163,7 @@ void Physician::psych_workup()
 {
 	order_lab_tests("Complete blood count, Electrolyte panel");
 	order_ekg();
-	order_iv_drugs("ativan");
+	order_iv_drugs("ativan", "anxiety");
 	call_consult("psychiatrist");
 	pause_continue();
 	std::cout << "We want you to feel safe with a plan before you go home." << std::endl;
@@ -174,8 +175,8 @@ void Physician::trauma_workup()
 	order_lab_tests("complete blood count, type and screen");
 	order_imaging("CT scan");
 	pause_continue();
-	order_iv_drugs("normal saline");
-	order_iv_drugs("platelets");
+	order_iv_drugs("lactated ringers", "shock");
+	order_iv_drugs("platelets", "blood loss");
 	if (p_pt->show_age() > 30 && p_pt->show_age() < 60)
 	{
 		emergency_procedure("craniotomy");
@@ -187,11 +188,16 @@ void Physician::trauma_workup()
 }
 void Physician::assault_workup()
 {
-	order_lab_tests("std screen");
-	order_iv_drugs("tylenol");
-	order_iv_drugs("std prophylactic antibiotics and antivirals");
+	order_iv_drugs("tylenol", "pain");
+	order_iv_drugs("prophylactic antibiotics/antivirals", "potential infection from the assault");
 	call_consult("gynecologist and/or social worker");
 	std::cout << "The police will also be here to speak with you shortly." << std::endl;
+	pause_continue();
+	std::cout << "The nurse will draw labs relevant to sexual assault and ask you to provide a urine sample.  " << std::endl;
+	std::cout << "If applicable, a pregnancy test will be done on this urine. " << std::endl;
+	pause_continue();
+	std::cout << "Prophylactic (medically preventive) sexually transmitted infection treatment will also be offered." << std::endl;
+	std::cout << "A social worker and counselor will be summoned to help you deal with this crisis emotionally and psychologically. " << std::endl;
 	pause_continue();
 	pause_continue();
 	std::string answer;
@@ -208,7 +214,7 @@ void Physician::assault_workup()
 void Physician::medical_workup()
 {
 	order_lab_tests("complete blood count, inflammatory markers, metabolic panel w/blood glucose, electrolyte panel");
-	order_iv_drugs("normal saline");
+	order_iv_drugs("normal saline", "dehydration");
 	std::cout << "Have your symptoms resolved?" << std::endl;
 	std::string answer;
 	std::cin >> answer;
@@ -234,13 +240,13 @@ void Physician::medical_workup()
 
 //these go inside other functions
 void Physician::order_lab_tests(std::string test)
-{
-	p_rn->draw_labs(test);	
+{//CSF
+	p_rn->draw_labs();	
 }
-void Physician::order_oxygen() 
+void Physician::order_oxygen()
 {
-	std::cout << "Your physician has ordered that you receive supplemental oxygen through a mask, " << std::endl;
-	
+	std::cout << "Your physician has ordered that you receive supplemental oxygen through a mask. " << std::endl;
+	std::cout << std::endl;
 	p_rn->give_oxygen();
 }
 void Physician::order_ekg() 
@@ -253,6 +259,7 @@ void Physician::order_ekg()
 	std::cout << "This electrical activity is what determines the rate, regularity, and force of your heartbeat. " << std::endl;
 	std::cout << "Problems with your heart muscle, which disrupt this electrical activity, " << std::endl;
 	std::cout << "can cause serious heart problems and even psychiatric symptoms. " << std::endl;
+	pause_continue();
 }
 void Physician::order_imaging(std::string method) 
 {
@@ -286,14 +293,14 @@ void Physician::order_imaging(std::string method)
 		std::cout << "Magnetic Resonance Imaging does not use radiation, but instead uses the recorded " << std::endl;
 		std::cout << "vibrations of magnets rotating around the patient's body to create images. " << std::endl;
 		pause_continue();
-		std::cout <<"This technique can be more useful for evaluating the structures of the brain and nervous system. " << std::endl;
+		std::cout <<"This technique can be more useful for evaluating the structures of the brain and nervous system than x-rays or ultrasound. " << std::endl;
 	}
 
 }
-void Physician::order_iv_drugs( std::string drug)
+void Physician::order_iv_drugs( std::string drug, std::string symptom)
 {
-	std::cout << "The ER physician is ordering " << drug << " to be given intravenously to help treat your problem. " << std::endl;
-	p_rn->give_iv_drugs(drug);
+	std::cout << "The ER physician is ordering " << drug << " to be given intravenously to help treat your " << symptom << "." << std::endl;
+	p_rn->give_iv_drugs();
 }
 void Physician::explanation( std::string proc)
 {
@@ -402,13 +409,13 @@ void Physician::emergency_procedure(std::string w)
 	if (w == "cardiac arrest")
 	{
 		explanation(w);
-		p_rn->give_iv_drugs("epinephrine");
+		order_iv_drugs("epinephrine", "arrested heart");
 	}
 	if (w == "rapid sequence intubation")
 	{
 		explanation(w);
-		p_rn->give_iv_drugs("etomidate");
-		p_rn->give_iv_drugs("rocuronium");
+		order_iv_drugs("etomidate and rocuronium", "compromised airway. Etomidate is a sedative, so you will not feel. Rocuronium is a muscle relaxant so we can get the tube in.");
+		
 			
 	}
 	if (w == "cricothyroidotomy")
@@ -418,9 +425,7 @@ void Physician::emergency_procedure(std::string w)
 	if (w == "craniotomy")
 	{
 		explanation(w);
-		p_rn->give_iv_drugs("corticosteroids");
-		p_rn->give_iv_drugs("anticonvulsants");
-		p_rn->give_iv_drugs("prophylactic antibiotics");
+		order_iv_drugs("mannitol to reduce brain_swelling, anticonvulsants to prevent seizures, and prophylactic antibiotics, to prevent infection.", "swollen brain");
 	}
 	admit_to_hospital("observation");
 
@@ -434,6 +439,7 @@ void Physician::admit_to_hospital( std::string reason)
 	std::cout << "Your ER physician is admitting you to the hospital for " << reason << "." << std::endl;
 	pause_continue();
 	std::cout << "An extended stay in the hospital will ensure that you respond well to the treatments you are receiving. " << std::endl;
+	pause_continue();
 	p_rn->pass_report();
 }
 

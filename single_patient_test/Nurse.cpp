@@ -22,6 +22,7 @@ int Nurse::triage()
 	int last_po;
 	//if complaint = 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10, 11, 12
 	//allergies
+	pause_continue();
 	std::cout << "You are next in line." << std::endl;
 	std::cout << "Please enter any foods or medications to which you are ALLERGIC." << std::endl;
 	std::cout << "If there are none, or you are finished, type q on a new line and press enter." << std::endl;
@@ -85,27 +86,13 @@ int Nurse::triage()
 	p_pt->set_last_po(last_po);
 	return last_po;
 }
-void Nurse::draw_labs( std::string test) 
+void Nurse::draw_labs() 
 {
+	std::cout << "Your nurse is now drawing the blood for the required " << std::endl; 
+	std::cout << "studies and will send the vials to the lab for analysis. " << std::endl;
+	pause_continue();
+
 	
-	
-	if (test == "std screen")
-	{
-		pause_continue();
-		std::cout << "The nurse will draw labs relevant to sexual assault and ask you to provide a urine sample.  " << std::endl;
-		std::cout << "If applicable, a pregnancy test will be done on this urine. " << std::endl;
-		pause_continue();
-		std::cout << "Prophylactic (medically preventive) sexually transmitted infection treatment will also be offered." << std::endl;
-		std::cout << "A social worker and counselor will be summoned to help you deal with this crisis emotionally and psychologically. " << std::endl;
-		std::cout << std::endl;
-		std::cout << std::endl;
-	}
-	else
-	{
-		std::cout << "Your nurse will now draw the blood for the " << test << std::endl; 
-		std::cout << "studies and send the vials to the lab for analysis. " << std::endl;
-		pause_continue();
-	}
 	
 }
 void Nurse::give_oxygen() 
@@ -119,17 +106,28 @@ void Nurse::give_oxygen()
 	pause_continue();
 	std::cout << "Using a tank full of pure oxygen and delivered with a mask and connecting tube, " << std::endl;
 	std::cout << "we can maximize the nourishment which the cells of your body receive with each breath." << std::endl;
+	pause_continue();
 	std::cout << std::endl;
 	std::cout << std::endl;
 
 }
-void Nurse::give_iv_drugs( std::string drugs) 
+void Nurse::give_iv_drugs( ) 
 {
-	
-	std::cout << "The nurse is placing an IV in your arm and giving you " << drugs << ", as ordered by the physician. " << std::endl;
+	pause_continue();
+	std::cout << std::endl;
+	std::cout << "The nurse is placing an intravenous line, a kind of flexible access port to your circulatory system" << std::endl;
+	std::cout << "into your arm for medication and fluid delivery, as ordered by the physician. " << std::endl;
+	pause_continue();
+	std::cout << "You will feel a slight pinch!" << std::endl;
+	pause_continue();
+	std::cout << "The nurse placed the IV successfully, she will now hook up to a hydration machine or inject the prescribed " << std::endl;
+	std::cout << "drug with some liquid solution so that it can enter your bloodstream smoothly." << std::endl;
+	std::cout << std::endl;
+	std::cout << "You should start feeling at least a little better momentarily!" << std::endl;
+	pause_continue();
 	std::cout << "Administering medications and hydration fluids intravenously with sterile equipment is a safe " << std::endl;
-	std::cout << "and efficient way to treat your symptoms and/or illness.  Try to keep the site on your body, " << std::endl;
-	std::cout << "(usually the arm) where the nurse placed the angiocatheter uncovered and dry." << std::endl;
+	std::cout << "and efficient way to treat your symptoms and/or illness.  Try to keep the area of your skin" << std::endl;
+	std::cout << "(usually the arm) at and around where the nurse placed the angiocatheter uncovered and dry." << std::endl;
 	pause_continue();
 	std::cout << "Notify the nurse if you experience pain, itching, redness, swelling, or leakage near or at the IV site." << std::endl;
 	std::cout << "IV infiltration is when the catheter becomes dislodged from the vein, and begins dumping fluid into the" << std::endl;
@@ -150,10 +148,11 @@ void Nurse::perform_ekg()
 }
 void Nurse::pass_report()
 {
-	
+	std::cout << std::endl;
 	std::cout << "The nurse is calling report upstairs, which means the nurse is passing a " << std::endl;
 	std::cout << "detailed verbal summary of your condition and profile to the nurse counterpart " << std::endl;
 	std::cout << "on one of the inpatient floors of this hospital, where your stay will be." << std::endl;
+	std::cout << std::endl;
 	std::cout << "A staff member will bring you upstairs shortly. " << std::endl;
 	pause_continue();
 	std::cout << "Here is your chart: " << std::endl;
