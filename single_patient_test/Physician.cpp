@@ -52,25 +52,21 @@ void Physician::see_patient()
 
 void Physician::cardiac_workup() 
 {	
-	std::cout << "Does it feel like someone is sitting on your chest?" << std::endl;
-	std::string answer;
-	std::cin >> answer;
-	if (answer == "y")
-	{
-		if (p_pt->show_age() > 55 && (p_pt->show_sex() == "male" || p_pt->show_sex() == "m" || p_pt->show_sex() == "Male"))
+	if (p_pt->show_age() > 55 && (p_pt->show_sex() == "male" || p_pt->show_sex() == "m" || p_pt->show_sex() == "Male"))
 		{
 			emergency_procedure("cardiac arrest");
 		}
-		else
+	else
 		{
 			order_oxygen();
 			order_ekg();
 			order_lab_tests("troponin");
-			order_iv_drugs("normal saline", "beta blocker");
+			order_iv_drugs("beta blocker");
 			std::cout << "Your EKG is normal and your troponin result is negative." << std::endl;
 			pause_continue();
 			std::cout << "We will check for other causes." << std::endl;
 			pause_continue();
+			std::string answer;
 			std::cout << "Has your pain resolved?" << std::endl;
 			std::cin >> answer;
 			if (answer == "y")
@@ -86,11 +82,11 @@ void Physician::cardiac_workup()
 
 
 		}
-	}
 }
 void Physician::respiratory_workup()
 {
-	std::cout << "Are you having trouble breathing because something hit you in the throat and your airway has collapsed? Type 'y' for yes, 'n' for no." << std::endl;
+	std::cout << "Are you having trouble breathing because something hit you in the throat?" << std::endl;
+	std::cout << "Type 'y' for yes, 'n' for no." << std::endl;
 	std::string answer;
 	std::cin >> answer;
 	if (answer == "y")
@@ -100,7 +96,7 @@ void Physician::respiratory_workup()
 	else
 	{
 		std::cout << "The physician has prescribed an aerosolized albuterol treatment for your respiratory problem. " << std::endl;
-		std::cout << "Albuterol will help dilate your bronchioles, allowing more air to get to your lungs. " << std::endl;
+		std::cout << "Albuterol will dilate your bronchioles, allowing more air to get to your lungs. " << std::endl;
 		pause_continue();
 		std::cout << "The physician has also prescribed a steroid to reduce inflammation in your airways. " << std::endl;
 		pause_continue();
@@ -114,7 +110,8 @@ void Physician::respiratory_workup()
 		{
 			order_iv_drugs("dexamethasone");
 			pause_continue();
-			std::cout << "Your bronchiolitic episode has improved.  Your respirations are full and unlabored, and your other vitals are stable." << std::endl;
+			std::cout << "Your bronchiolitic episode has resolved." << std::endl;
+			std::cout << "Your respirations are full and unlabored, and your other vitals are stable." << std::endl;
 			p_rn->discharge();
 		}
 	}
@@ -146,10 +143,10 @@ void Physician::abd_workup()
 }
 void Physician::neuro_workup() 
 {
-	order_imaging("mri");
+	order_imaging("MRI");
 	pause_continue();
 	order_lab_tests("cerebrospinal fluid");
-	order_iv_drugs("keppra", "toradol");
+	order_iv_drugs("toradol");
 	call_consult("neurologist");
 	pause_continue();
 	std::cout << "You have meningitis and we need to treat you aggressively." << std::endl;
@@ -162,7 +159,7 @@ void Physician::neuro_workup()
 
 void Physician::psych_workup() 
 {
-	order_lab_tests("complete blood count, Electrolyte panel");
+	order_lab_tests("Complete blood count, Electrolyte panel");
 	order_ekg();
 	order_iv_drugs("ativan");
 	call_consult("psychiatrist");
@@ -174,9 +171,10 @@ void Physician::trauma_workup()
 {
 	//std::cout << "How fast were you going?" << std::endl;
 	order_lab_tests("complete blood count, type and screen");
-	order_imaging("ct scan");
+	order_imaging("CT scan");
 	pause_continue();
-	order_iv_drugs("normal saline", "platelets");
+	order_iv_drugs("normal saline");
+	order_iv_drugs("platelets");
 	if (p_pt->show_age() > 30 && p_pt->show_age() < 60)
 	{
 		emergency_procedure("craniotomy");
@@ -189,7 +187,8 @@ void Physician::trauma_workup()
 void Physician::assault_workup() 
 {
 	order_lab_tests("std screen");
-	order_iv_drugs("tylenol", "prophylaxis");
+	order_iv_drugs("tylenol");
+	order_iv_drugs("std prophylactic antibiotics and antivirals");
 	call_consult("gynecologist and/or social worker");
 	std::cout << "The police will also be here to speak with you shortly." << std::endl;
 	pause_continue();
@@ -208,7 +207,7 @@ void Physician::assault_workup()
 void Physician::medical_workup() 
 {
 	order_lab_tests("complete blood count, inflammatory markers, metabolic panel w/blood glucose, electrolyte panel");
-	order_iv_drugs("normal saline", "antibiotics");
+	order_iv_drugs("normal saline");
 	std::cout << "Have your symptoms resolved?" << std::endl;
 	std::string answer;
 	std::cin >> answer;
@@ -237,36 +236,30 @@ void Physician::medical_workup()
 //these go inside other functions
 void Physician::order_lab_tests(std::string test)
 {
-	p_rn->draw_labs(test);
-	std::cout << "Abnormal levels of " << test << ", whether abnormally high or abnormally low, can lead to your symptoms and/or problem. " << std::endl;
-	
+	p_rn->draw_labs(test);	
 }
 void Physician::order_oxygen() 
 {
 	std::cout << "Your physician has ordered that you receive supplemental oxygen through a mask, " << std::endl;
-	std::cout << "which will ensure adequate oxygenation of your blood." << std::endl;
-	std::cout << "his is essential to maintain consistent support of all the tissues of your body, " << std::endl;
-	std::cout << "especially your brain and vital organs." << std::endl;
+	
 	p_rn->give_oxygen();
 }
 void Physician::order_ekg() 
 {
 	std::cout << "Your ER physician has ordered an electrocardiogram, also known as an EKG." << std::endl;
 	std::cout << "\nAn EKG measures changes in ion flow across your heart which occur just " << std::endl;
-	std::cout << "before the cardiac muscle " << std::endl;
-	std::cout << "contracts or relaxes when pumping or refilling with blood. " << std::endl;
-	std::cout << "Another way to say this is that the EKG will trace a two dimensional, " << std::endl;
-	std::cout << "carefully measured wave line " << std::endl;
-	std::cout << "which will correspond with your heart's natural electrical activity. " << std::endl;
+	std::cout << "before the cardiac muscle contracts or relaxes when pumping or refilling with blood. " << std::endl;
+	std::cout << "The computer will trace a wave line on the page, which will correspond with your heart's natural electrical activity. " << std::endl;
 	pause_continue();
 	std::cout << "This electrical activity is what determines the rate, regularity, and force of your heartbeat. " << std::endl;
-	std::cout << " Problems with your heart muscle, which disrupt this electrical activity, " << std::endl;
-	std::cout << " can cause serious heart problems and even psychiatric symptoms. " << std::endl;
+	std::cout << "Problems with your heart muscle, which disrupt this electrical activity, " << std::endl;
+	std::cout << "can cause serious heart problems and even psychiatric symptoms. " << std::endl;
 }
 void Physician::order_imaging(std::string method) 
 {
-	std::cout << "A staff person will be taking you to the Radiology department. Your ER physician " << std::endl;
+	std::cout << "A staff person will take you to the Radiology department. Your ER physician " << std::endl;
 	std::cout << "has ordered " << method << " imaging to help look for the cause of your problem." << std::endl;
+	pause_continue();
 	if (method == "ultrasound")
 	{
 		std::cout << "Ultrasound is a gentle, non-invasive, fast way to image the contours of the organs in your abdomen" << std::endl;
@@ -292,8 +285,8 @@ void Physician::order_imaging(std::string method)
 	if (method == "MRI")
 	{
 		std::cout << "Magnetic Resonance Imaging does not use radiation, but instead uses the recorded " << std::endl;
-			std::cout << "vibrations of magnets rotating around the patient's body to create images. " << std::endl;
-			pause_continue();
+		std::cout << "vibrations of magnets rotating around the patient's body to create images. " << std::endl;
+		pause_continue();
 		std::cout <<"This technique can be more useful for evaluating the structures of the brain and nervous system. " << std::endl;
 	}
 
@@ -303,15 +296,23 @@ void Physician::order_iv_drugs( std::string drug)
 	std::cout << "The ER physician is ordering " << drug << " to be given intravenously to help treat your problem. " << std::endl;
 	p_rn->give_iv_drugs(drug);
 }
-void Physician::order_iv_drugs(std::string drug1,  std::string drug2) 
-{
-	/*if medication == listed allergic medication*/
-	std::cout << "The ER physician is ordering " << drug1 << " to be given intravenously to help treat your problem. " << std::endl;
-	std::cout << drug2 << " will also be given intravenously to treat the symptoms associated with your problem. " << std::endl;
-	p_rn->give_iv_drugs(drug1, drug2);
-}
 void Physician::explanation( std::string proc)
 {
+	if (proc == "cerebrospinal fluid")
+	{
+		std::cout << "The physician will need to do a special procedure called a lumbar puncture to draw some of your cerebrospinal fluid. " << std::endl;
+		std::cout << "Cerebrospinal fluid is a normally clear fluid which is circulated " << std::endl;
+		std::cout << "through your spinal cord and fills the ventricles of your brain. " << std::endl;
+		std::cout << "The fluid provides cushioning and nourishment exclusive to the central nervous system. " << std::endl;
+		pause_continue();
+		std::cout << "The physician will numb an area in the small of your back, between the protuberances of two of the lumbar vertebrae, and " << std::endl;
+		std::cout << " push a sterile needle to the center of your spinal cord. " << std::endl;
+		pause_continue();
+		std::cout << "The opening inside the hollow needle will fill with your " << std::endl;
+		std::cout << "cerebrospinal fluid, and the physician will collect a small amount in vials.  If the fluid is cloudy or bloody, " << std::endl;
+		std::cout << " it indicates dangerous inflammation in the central nervous system" << std::endl;
+		std::cout << " or possible brain swelling from injury or infection. The lab will formally analyze it." << std::endl;
+	}
 	if (proc == "cardiac arrest")
 	{
 		
@@ -337,13 +338,15 @@ void Physician::explanation( std::string proc)
 		std::cout << "lower left torso, to send an electrical current through" << std::endl;
 		std::cout << "your heart muscle and reset body's electrical activity, which will hopefully reset the heart rhythmn " << std::endl;
 		pause_continue();
-		std::cout << "We got your heart into a regular rhythm.  You will need to go to the ICU but you seem to be stabilizing.  Rest easy." << std::endl;
+		std::cout << "We got your heart into a regular rhythm.  You will need to go to the ICU but you seem to be stabilizing." << std::endl;
+		std::cout << "Rest easy." << std::endl;
 	}
 	if (proc == "rapid sequence intubation")
 	{
 		std::cout << "The physician will place a breathing tube directly down your trachea to ensure your lungs receive enough air. " << std::endl;
 		pause_continue();
 		std::cout << "Your body is not strong enough to take in adequate air on its own. " << std::endl;
+		pause_continue();
 		std::cout << "The procedure was successful. We will take a chest X-ray to ensure that the tube is positioned properly." << std::endl;
 		std::cout << "Your situation has improved. Rest easy." << std::endl;
 		
@@ -382,7 +385,6 @@ void Physician::explanation( std::string proc)
 		pause_continue();
 		std::cout << "Lidocaine is being used to thoroughly numb the area." << std::endl;
 		pause_continue();
-		std::cout << "You cannot feel or read this.  There is nothing to fear." << std::endl;
 		pause_continue();
 		pause_continue();
 		pause_continue();
@@ -393,6 +395,11 @@ void Physician::explanation( std::string proc)
 
 void Physician::emergency_procedure(std::string w)
 {
+	if (w == "cerebrospinal fluid")
+	{
+		explanation(w);
+
+	}
 	if (w == "cardiac arrest")
 	{
 		explanation(w);
@@ -401,7 +408,8 @@ void Physician::emergency_procedure(std::string w)
 	if (w == "rapid sequence intubation")
 	{
 		explanation(w);
-		p_rn->give_iv_drugs("etomidate", "rocuronium");
+		p_rn->give_iv_drugs("etomidate");
+		p_rn->give_iv_drugs("rocuronium");
 			
 	}
 	if (w == "cricothyroidotomy")
@@ -411,7 +419,9 @@ void Physician::emergency_procedure(std::string w)
 	if (w == "craniotomy")
 	{
 		explanation(w);
-		p_rn->give_iv_drugs("corticosteroids, anticonvulsant drugs, prophylactic antibiotics");
+		p_rn->give_iv_drugs("corticosteroids");
+		p_rn->give_iv_drugs("anticonvulsants");
+		p_rn->give_iv_drugs("prophylactic antibiotics");
 	}
 	admit_to_hospital("observation");
 

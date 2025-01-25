@@ -30,7 +30,6 @@ public:
 	void order_imaging( std::string method);
 	void order_ekg();
 	void order_iv_drugs(std::string drug);
-	void order_iv_drugs( std::string drug1,  std::string drug2);
 	void explanation(std::string proc);
 	void emergency_procedure( std::string w);
 	void call_consult( std::string specialist);// = new surgeon, etc.

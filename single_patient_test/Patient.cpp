@@ -41,6 +41,20 @@ int Patient::chief_complaint()
 	std::cout << "7 - You were physically or sexually assaulted." << std::endl;
 	std::cout << "8 - You do not know what is wrong, but you need help." << std::endl;
 	std::cin >> input;
+	if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Invalid entry." << std::endl;
+			std::cin >> input;
+		}
+	if (input <= 0 || input > 8)
+	{
+		std::cout << "Stay where you are.  A nurse is coming to get you." << std::endl;
+		return -999;//follow this up
+
+	}
+	
 	
 	//std::cin.fail()
 	std::cout << "Thank you for your patience. A nurse will be with you shortly." << std::endl;
@@ -86,6 +100,7 @@ std::string Patient::show_sex()
 {
 	return sex_at_birth;
 }
+
 int Patient::show_complaint()
 {
 	return complaint;
