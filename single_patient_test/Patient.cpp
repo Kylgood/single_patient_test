@@ -123,3 +123,25 @@ void Patient::print_demographics()
 	
 
 }
+void Patient::print_all_vax_meds()
+{
+	std::cout << std::endl;
+	std::cout << "ALLERGIES" << std::endl;
+	for (auto i : allergies)
+	{
+		std::cout << i << std::endl;
+	}
+	std::cout << std::endl;
+	std::cout << "VACCINATIONS" << std::endl;
+	for (auto k : vax)
+	{
+		std::cout << k << std::endl;
+	}
+	std::cout << std::endl;
+	std::cout << "MEDICATIONS" << std::endl;
+	for (auto m : meds)
+	{
+		std::cout << m << std::endl;
+	}
+
+}

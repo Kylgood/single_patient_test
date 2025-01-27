@@ -48,7 +48,7 @@ int main()
 	//temp generator
 	const float temp_norm = 37.0;
 	std::default_random_engine temp_engine;
-	std::normal_distribution<> temp_distr(temp_norm, .5);
+	std::normal_distribution<> temp_distr(temp_norm, 1.0);
 	
 
 	//ox generator

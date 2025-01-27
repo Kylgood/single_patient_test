@@ -9,21 +9,21 @@ private:
 	int diastolic;
 	int pulse;
 	int resps;
-	float temp;
+	double temp;
 	int o2_sat;
 	int loc;
 	std::string time_taken;
 
 
 public:
-	Vitals(int, int, int, int, float, int, int, std::string);
+	Vitals(int, int, int, int, double, int, int, std::string);
     int show_heart();
 	int show_resps();
 	int show_systolic();
 	int show_diastolic();
 	int show_loc();
 	int show_o2_sat();
-	float show_temp();
+	double show_temp();
 	std::string show_time();
 	//construct a new set of vitals with constructor function and 
 	//integer arguments in proper order for 

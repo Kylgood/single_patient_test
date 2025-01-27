@@ -146,7 +146,7 @@ void Physician::neuro_workup()
 {
 	order_imaging("MRI");
 	pause_continue();
-	order_lab_tests("cerebrospinal fluid");
+	emergency_procedure("cerebrospinal fluid");
 	order_iv_drugs("toradol", "migraine");
 	call_consult("neurologist");
 	pause_continue();
@@ -165,8 +165,6 @@ void Physician::psych_workup()
 	order_ekg();
 	order_iv_drugs("ativan", "anxiety");
 	call_consult("psychiatrist");
-	pause_continue();
-	std::cout << "We want you to feel safe with a plan before you go home." << std::endl;
 	admit_to_hospital("observation");
 }
 void Physician::trauma_workup()
@@ -252,11 +250,13 @@ void Physician::order_oxygen()
 void Physician::order_ekg() 
 {
 	std::cout << "Your ER physician has ordered an electrocardiogram, also known as an EKG." << std::endl;
+	pause_continue();
 	std::cout << "\nAn EKG measures changes in ion flow across your heart which occur just " << std::endl;
 	std::cout << "before the cardiac muscle contracts or relaxes when pumping or refilling with blood. " << std::endl;
 	std::cout << "The computer will trace a wave line on the page, which will correspond with your heart's natural electrical activity. " << std::endl;
 	pause_continue();
 	std::cout << "This electrical activity is what determines the rate, regularity, and force of your heartbeat. " << std::endl;
+	pause_continue();
 	std::cout << "Problems with your heart muscle, which disrupt this electrical activity, " << std::endl;
 	std::cout << "can cause serious heart problems and even psychiatric symptoms. " << std::endl;
 	pause_continue();
@@ -276,24 +276,28 @@ void Physician::order_imaging(std::string method)
 	{
 		std::cout << "X-ray films harness electromagnetic radiation and pass the beams " << std::endl;
 		std::cout << "through the patient onto a special receiver, " << std::endl;
-		std::cout << " the data from which can create an image based on the different rates at " << std::endl;
+		std::cout << "the data from which can create an image based on the different rates at " << std::endl;
 		std::cout << "which different parts of the beam passed through. " << std::endl;
 		pause_continue();
-		std::cout << " This usually outlines the patient's skeletal structure in the area imaged, but also can " << std::endl;
+		std::cout << "This usually outlines the patient's skeletal structure in the area imaged, but also can " << std::endl;
 		std::cout << "reveal general structural features of other tissues, " << std::endl;
 		std::cout << " such as the lungs and the organs of the abdomen. " << std::endl;
+		pause_continue();
 	}
 	if (method == "CT scan")
 	{
 		std::cout << "Computed Tomagraphy uses higher energy x-rays and algorithmic computations " << std::endl;
 		std::cout << "to generate more detailed and layered imagery of the area. " << std::endl;
+		pause_continue();
 	}
 	if (method == "MRI")
 	{
 		std::cout << "Magnetic Resonance Imaging does not use radiation, but instead uses the recorded " << std::endl;
 		std::cout << "vibrations of magnets rotating around the patient's body to create images. " << std::endl;
 		pause_continue();
-		std::cout <<"This technique can be more useful for evaluating the structures of the brain and nervous system than x-rays or ultrasound. " << std::endl;
+		std::cout << "This technique can be more useful for evaluating the structures of the brain and " << std::endl;
+		std::cout << "nervous system than x-rays or ultrasound. " << std::endl;
+		pause_continue();
 	}
 
 }
@@ -354,6 +358,7 @@ void Physician::explanation( std::string proc)
 		std::cout << "Your body is not strong enough to take in adequate air on its own. " << std::endl;
 		pause_continue();
 		std::cout << "The procedure was successful. We will take a chest X-ray to ensure that the tube is positioned properly." << std::endl;
+		pause_continue();
 		std::cout << "Your situation has improved. Rest easy." << std::endl;
 		
 
@@ -365,8 +370,6 @@ void Physician::explanation( std::string proc)
 		std::cout << "bypassing your mouth and pharynx, because those structures are compromised. " << std::endl;
 		pause_continue();
 		std::cout << "Without this tube, adequate air cannot get in. " << std::endl;
-		pause_continue();
-		pause_continue();
 		pause_continue();
 		std::cout << "We have bypassed the obstruction in your throat." << std::endl;
 		std::cout << "Your oxygenation is improving. Rest easy." << std::endl;
@@ -381,7 +384,8 @@ void Physician::explanation( std::string proc)
 		std::cout << "The pressure from the blood is interfering with your brain's ability to regulate your vital functions, and must be cleared. " << std::endl;
 		pause_continue();
 		std::cout << "You are unconscious." << std::endl;
-		std::cout << "A neurosurgeon has been called to follow up as soon as she gets out of the OR, but your ER physician is trained in this procedure" << std::endl;
+		std::cout << "A neurosurgeon has been called to follow up as soon as she gets out of the OR, " << std::endl;
+		std::cout << "but your ER physician is trained in this procedure" << std::endl;
 		std::cout << "and we must move forward.  Sterile surgical drapes are being placed over your body." << std::endl;
 		pause_continue();
 		std::cout << "The area of your skull which needs to be removed is directly over the bleed.  It is covered in hair." << std::endl;
@@ -390,9 +394,6 @@ void Physician::explanation( std::string proc)
 		std::cout << "A mixture of povidone and iodine, extremely powerful sterilizing agents, is being used to make the scalp ready for incisions." << std::endl;
 		pause_continue();
 		std::cout << "Lidocaine is being used to thoroughly numb the area." << std::endl;
-		pause_continue();
-		pause_continue();
-		pause_continue();
 		pause_continue();
 		std::cout << "The procedure was successful. You will need to stay in the hospital to recover, but your prognosis looks good.  Rest easy." << std::endl;
 		
@@ -414,7 +415,7 @@ void Physician::emergency_procedure(std::string w)
 	if (w == "rapid sequence intubation")
 	{
 		explanation(w);
-		order_iv_drugs("etomidate and rocuronium", "compromised airway. Etomidate is a sedative, so you will not feel. Rocuronium is a muscle relaxant so we can get the tube in.");
+		order_iv_drugs("etomidate and rocuronium", "compromised airway. Etomidate is a sedative, so you will not feel the procedure. Rocuronium is a muscle relaxant so we can get the tube in.");
 		
 			
 	}
@@ -425,7 +426,7 @@ void Physician::emergency_procedure(std::string w)
 	if (w == "craniotomy")
 	{
 		explanation(w);
-		order_iv_drugs("mannitol to reduce brain_swelling, anticonvulsants to prevent seizures, and prophylactic antibiotics, to prevent infection.", "swollen brain");
+		order_iv_drugs("mannitol to reduce brain swelling, anticonvulsants to prevent seizures, and prophylactic antibiotics, to prevent infection.", "swollen brain");
 	}
 	admit_to_hospital("observation");
 
@@ -439,7 +440,6 @@ void Physician::admit_to_hospital( std::string reason)
 	std::cout << "Your ER physician is admitting you to the hospital for " << reason << "." << std::endl;
 	pause_continue();
 	std::cout << "An extended stay in the hospital will ensure that you respond well to the treatments you are receiving. " << std::endl;
-	pause_continue();
 	p_rn->pass_report();
 }
 

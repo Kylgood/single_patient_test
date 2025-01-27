@@ -2,7 +2,8 @@
 #include "Provider.h"
 class Nurse : public Provider
 {
-
+private: 
+	bool iv_placed = false;
 public:
 	Nurse(Patient*);
 	int triage();

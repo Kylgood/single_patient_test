@@ -1,6 +1,7 @@
 
 #include "Provider.h"
 #include <iostream>
+#include <iomanip>
 #include <string>
 //base class Provider definitions
 
@@ -8,7 +9,7 @@
 Provider::Provider(Patient* p)
 	:p_pt(p)
 {}
-void Provider::take_vital_signs(int sy, int di, int pu, int re, float te, int ox, int lo)
+void Provider::take_vital_signs(int sy, int di, int pu, int re, double te, int ox, int lo)
 {
 	//now take the first set of vital signs:
 	std::cout << "The provider will now take a set of your vital signs. " << std::endl;
@@ -33,9 +34,9 @@ void Provider::take_vital_signs(int sy, int di, int pu, int re, float te, int ox
 	std::cout << std::endl;
 	std::cout << "Your lungs inhale and exhale at a rate of " << resp << " cycles per minute." << std::endl;
 	pause_continue();
-	float temp = te;
+	double temp = te;
 	std::cout << std::endl;
-	std::cout << "Your temperature was " << temp << std::endl;
+	std::cout << "Your temperature was " << std::setprecision(3) << temp << " degrees celsius." << std::endl;
 	std::cout << "Normal human body temperature in celsius is 37 degrees." << std::endl;
 	pause_continue();
 	int spO2 = ox;
@@ -56,7 +57,11 @@ void Provider::take_vital_signs(int sy, int di, int pu, int re, float te, int ox
 void Provider::chart_report()
 {
 	p_pt->print_demographics();
+	std::cout << std::endl;
+	p_pt->print_all_vax_meds();
+	std::cout << std::endl;
 	p_pt->p_ch->print_chart();
+	
 }
 void Provider::pause_continue()
 {

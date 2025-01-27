@@ -32,6 +32,7 @@ public:
 	std::string show_sex();
 	int show_complaint();
 	void print_demographics();
+	void print_all_vax_meds();
 
 
 };

@@ -88,7 +88,7 @@ int Nurse::triage()
 }
 void Nurse::draw_labs() 
 {
-	std::cout << "Your nurse is now drawing the blood for the required " << std::endl; 
+	std::cout << "Your nurse is now drawing blood from your IV for the required " << std::endl; 
 	std::cout << "studies and will send the vials to the lab for analysis. " << std::endl;
 	pause_continue();
 
@@ -113,26 +113,38 @@ void Nurse::give_oxygen()
 }
 void Nurse::give_iv_drugs( ) 
 {
+	if (iv_placed == false)
+	{
+		pause_continue();
+		std::cout << std::endl;
+		std::cout << "The nurse is placing an intravenous line, a kind of flexible access port to your circulatory system" << std::endl;
+		std::cout << "into your arm for medication and fluid delivery, as ordered by the physician. " << std::endl;
+		pause_continue();
+		std::cout << "You will feel a strong pinch!  Do not move your arm or the nurse will have to start over!" << std::endl;
+		pause_continue();
+		std::cout << "The nurse placed the IV successfully, she will now hook up to a hydration machine or inject the prescribed " << std::endl;
+		std::cout << "drug with some liquid solution so that it can enter your bloodstream smoothly." << std::endl;
+		std::cout << std::endl;
+		std::cout << "You should start feeling at least a little better momentarily!" << std::endl;
+		pause_continue();
+		std::cout << "Administering medications and hydration fluids intravenously with sterile equipment is a safe " << std::endl;
+		std::cout << "and efficient way to treat your symptoms and/or illness. " << std::endl;
+		pause_continue();
+		std::cout << "Try to keep the area of your skin" << std::endl;
+		std::cout << "(usually the arm) where the nurse placed the angiocatheter uncovered and dry." << std::endl;
+		pause_continue();
+		std::cout << "Notify the nurse if you experience pain, itching, redness, swelling, or leakage near or at the IV site." << std::endl;
+		pause_continue();
+		std::cout << "IV infiltration is when the catheter becomes dislodged from the vein, and begins dumping fluid into the" << std::endl;
+		std::cout << "superficial layers of the skin of your arm." << std::endl;
+		pause_continue();
+		std::cout << "This can create a dangerous bubble under your skin which can become infected." << std::endl;
+		iv_placed = true;
+		std::cout << std::endl;
+	}
+	std::cout << "The medication was successfully given." << std::endl;
 	pause_continue();
-	std::cout << std::endl;
-	std::cout << "The nurse is placing an intravenous line, a kind of flexible access port to your circulatory system" << std::endl;
-	std::cout << "into your arm for medication and fluid delivery, as ordered by the physician. " << std::endl;
-	pause_continue();
-	std::cout << "You will feel a slight pinch!" << std::endl;
-	pause_continue();
-	std::cout << "The nurse placed the IV successfully, she will now hook up to a hydration machine or inject the prescribed " << std::endl;
-	std::cout << "drug with some liquid solution so that it can enter your bloodstream smoothly." << std::endl;
-	std::cout << std::endl;
-	std::cout << "You should start feeling at least a little better momentarily!" << std::endl;
-	pause_continue();
-	std::cout << "Administering medications and hydration fluids intravenously with sterile equipment is a safe " << std::endl;
-	std::cout << "and efficient way to treat your symptoms and/or illness.  Try to keep the area of your skin" << std::endl;
-	std::cout << "(usually the arm) at and around where the nurse placed the angiocatheter uncovered and dry." << std::endl;
-	pause_continue();
-	std::cout << "Notify the nurse if you experience pain, itching, redness, swelling, or leakage near or at the IV site." << std::endl;
-	std::cout << "IV infiltration is when the catheter becomes dislodged from the vein, and begins dumping fluid into the" << std::endl;
-	std::cout << "superficial layers of the skin of your arm." << std::endl;
-	std::cout << "This can create a dangerous bubble under your skin which can become infected." << std::endl;
+	
 }
 void Nurse::perform_ekg() 
 {
@@ -141,17 +153,21 @@ void Nurse::perform_ekg()
 	pause_continue();
 	std::cout << "Six electrodes will go on the left side of your torso, " << std::endl;
 	std::cout << "where the strongest part of your heart is, and one electrode will go on each arm and leg. " << std::endl;
-	std::cout << "The ten electrodes, if read in different sequences, will allow " << std::endl;
-	std::cout << " the EKG equipment to capture the electrical pattern of your heart muscle from several different angles. " << std::endl;
+	pause_continue();
+	std::cout << "The ten electrodes will allow the EKG equipment to capture the " << std::endl;
+	std::cout << "electrical pattern of your heart muscle from several different angles. " << std::endl;
 	pause_continue();
 	std::cout << "You will not feel any pain or other sensation from the machine during this procedure. " << std::endl;
+	pause_continue();
+	std::cout << "The EKG has been printed and the doctor will evaluate it." << std::endl;
+	std::cout << std::endl;
 }
 void Nurse::pass_report()
 {
 	std::cout << std::endl;
+	pause_continue();
 	std::cout << "The nurse is calling report upstairs, which means the nurse is passing a " << std::endl;
-	std::cout << "detailed verbal summary of your condition and profile to the nurse counterpart " << std::endl;
-	std::cout << "on one of the inpatient floors of this hospital, where your stay will be." << std::endl;
+	std::cout << "detailed verbal summary of your condition and profile to inpatient nurse upstairs." << std::endl;
 	std::cout << std::endl;
 	std::cout << "A staff member will bring you upstairs shortly. " << std::endl;
 	pause_continue();
