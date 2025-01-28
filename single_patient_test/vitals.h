@@ -21,9 +21,9 @@ public:
 	int show_resps();
 	int show_systolic();
 	int show_diastolic();
-	int show_loc();
-	int show_o2_sat();
 	double show_temp();
+	int show_o2_sat();
+	int show_loc();
 	std::string show_time();
 	//construct a new set of vitals with constructor function and 
 	//integer arguments in proper order for 

@@ -10,34 +10,34 @@ Vitals::Vitals(int sys, int dia, int hr, int rr, double t, int ox, int lc, std::
 }
 int Vitals::show_heart()
 {
-	return Vitals::pulse;
+	return pulse;
 
 }
 int Vitals::show_resps()
 {
-	return Vitals::resps;
+	return resps;
 }
 int Vitals::show_systolic()
 {
-	return Vitals::systolic;
+	return systolic;
 }
 int Vitals::show_diastolic()
 {
-	return Vitals::diastolic;
+	return diastolic;
 }
 
 double Vitals::show_temp()
 {
-	return Vitals::temp;
+	return temp;
 }
 
 int Vitals::show_o2_sat()
 {
-	return Vitals::o2_sat;
+	return o2_sat;
 }
- int Vitals::show_loc()
+int Vitals::show_loc()
 {
-	return Vitals::loc;
+	return loc;
 }
 
 std::string Vitals::show_time() {

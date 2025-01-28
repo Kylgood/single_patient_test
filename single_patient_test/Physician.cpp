@@ -14,6 +14,10 @@ void Physician::see_patient()
 {
 	int help = p_pt->show_complaint();
 
+	p_pt->p_ch->check_chart();
+
+	std::string pro = p_pt->p_ch->combine_info(help);
+	
 	switch (help)
 	{
 	case 1:
@@ -42,9 +46,8 @@ void Physician::see_patient()
 		break;
 	default:
 		break;
-
-
 	}
+	
 
 
 
@@ -308,7 +311,7 @@ void Physician::order_iv_drugs( std::string drug, std::string symptom)
 }
 void Physician::explanation( std::string proc)
 {
-	if (proc == "cerebrospinal fluid")
+	if (proc == "cerebrospinal_fluid")
 	{
 		std::cout << "The physician will need to do a special procedure called a lumbar puncture to draw some of your cerebrospinal fluid. " << std::endl;
 		std::cout << "Cerebrospinal fluid is a normally clear fluid which is circulated " << std::endl;
@@ -323,7 +326,7 @@ void Physician::explanation( std::string proc)
 		std::cout << " it indicates dangerous inflammation in the central nervous system" << std::endl;
 		std::cout << " or possible brain swelling from injury or infection. The lab will formally analyze it." << std::endl;
 	}
-	if (proc == "cardiac arrest")
+	if (proc == "cardiac_arrest")
 	{
 		
 		std::cout << std::endl;
@@ -351,7 +354,7 @@ void Physician::explanation( std::string proc)
 		std::cout << "We got your heart into a regular rhythm.  You will need to go to the ICU but you seem to be stabilizing." << std::endl;
 		std::cout << "Rest easy." << std::endl;
 	}
-	if (proc == "rapid sequence intubation")
+	if (proc == "rapid_sequence_intubation")
 	{
 		std::cout << "The physician will place a breathing tube directly down your trachea to ensure your lungs receive enough air. " << std::endl;
 		pause_continue();
@@ -402,17 +405,17 @@ void Physician::explanation( std::string proc)
 
 void Physician::emergency_procedure(std::string w)
 {
-	if (w == "cerebrospinal fluid")
+	if (w == "cerebrospinal_fluid")
 	{
 		explanation(w);
 
 	}
-	if (w == "cardiac arrest")
+	if (w == "cardiac_arrest")
 	{
 		explanation(w);
 		order_iv_drugs("epinephrine", "arrested heart");
 	}
-	if (w == "rapid sequence intubation")
+	if (w == "rapid_sequence_intubation")
 	{
 		explanation(w);
 		order_iv_drugs("etomidate and rocuronium", "compromised airway. Etomidate is a sedative, so you will not feel the procedure. Rocuronium is a muscle relaxant so we can get the tube in.");
