@@ -2,9 +2,10 @@
 #include <vector>
 #include <iostream>
 #include "chart.h"
-
+#include "Physician.h"
 
 //class Chart definitions
+
 
 Chart::Chart() {}
 void Chart::update_chart(Vitals* s)
@@ -19,86 +20,60 @@ void Chart::check_chart()
 	{
 		if (i->show_heart() < 60 || i->show_heart() > 120)
 		{
-			pulse_abnormal = true;
+			
+			std::cout << "\nAbnormal heart rate." << std::endl;
+			doc_ptr->set_pulse_flag();
 		}
 
 		if (i->show_systolic() < 90 || i->show_diastolic() < 50)
 		{
-			bp_abnormal = true;
+			std::cout << "\nAbnormal blood pressure." << std::endl;
+			doc_ptr->set_bp_flag();
 		}
 		if (i->show_systolic() > 135 || i->show_diastolic() > 89)
 		{
-			bp_abnormal = true;
+			std::cout << "\nAbnormal blood pressure." << std::endl;
+			doc_ptr->set_bp_flag();
 		}
 		if (i->show_o2_sat() < 95)
 		{
-			low_sat = true;
+			
+			std::cout << "\nAbnormal oxygen saturation." << std::endl;
+			doc_ptr->set_sat_flag();
 		}
 
 		if (i->show_temp() < 35.0)
 		{
-			temp_abnormal = true;
+			std::cout << "\nAbnormal body temperature." << std::endl;
+			doc_ptr->set_temp_flag();
 		}
 		if (i->show_temp() > 38.0)
 		{
-			temp_abnormal = true;
+			std::cout << "\nAbnormal body temperature." << std::endl;
+			doc_ptr->set_temp_flag();
 		}
 		if (i->show_resps() < 10)
 		{
-			resp_abnormal = true;
+			std::cout << "\nAbnormal respiratory rate." << std::endl;
+			doc_ptr->set_resp_flag();
 		}
 		if (i->show_resps() > 22)
 		{
-			resp_abnormal = true;
+			std::cout << "\nAbnormal respiratory rate." << std::endl;
+			doc_ptr->set_resp_flag();
 		}
 		if (i->show_loc() < 13)
 		{
-			low_loc = true;
+			std::cout << "\nLevel of consciousness is below normal." << std::endl;
+			doc_ptr->set_loc_flag();
 		}
 	}
 }
-std::string Chart::combine_info(const int c)
+
+void Chart::set_physician(Physician* p)
 {
-	//pulse_abnormal && bp_abnormal && low_sat && temp_abnormal && resp_abnormal && low_loc
-	if (low_loc && resp_abnormal && low_sat)
-	{
-		return "rapid_sequence_intubation";
-	}
-
-	if (low_loc && bp_abnormal && c == 6)
-	{
-		return "blood transfusion";
-	}
-	if (low_loc && temp_abnormal && (c == 3 || c== 8))
-	{
-		return "IV antibiotics for life-threatening infection";
-	}
-	if (low_loc && (c == 8 || c == 4))
-	{
-		return "check blood sugar, check blood ETOH";
-
-	}
-	if (bp_abnormal)
-	{
-		return "fluids";
-	}
-	if (pulse_abnormal)
-	{
-		return "ekg for cardiac arrythmia";
-	}
-	if (temp_abnormal)
-	{
-
-		return "tylenol for fever control";
-
-	}
-	if (low_sat)
-	{
-		return "supplemental oxygen mask";
-	}
+	doc_ptr = p;
 }
-
-
 
 void Chart::print_chart()
 {
@@ -111,9 +86,7 @@ void Chart::print_chart()
 		std::cout << "Blood Pressure: " << i->show_systolic() << "/" << i->show_diastolic() << std::endl;
 		std::cout << "Temperature: " << i->show_temp() << " degrees Celsius" << std::endl;
 		std::cout << "Oxygen Saturation: " << i->show_o2_sat() << " percent" << std::endl;
-		std::cout << "Level of Consciousness: " << i->show_loc() << "/15" << std::endl;
-
-		
+		std::cout << "Level of Consciousness: " << i->show_loc() << "/15" << std::endl;		
 
 	}
 

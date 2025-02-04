@@ -1,11 +1,12 @@
 #pragma once
 #include "generators.h"
-#include "vitals.h"
 #include "chart.h"
-#include <string>
+
+
 class Patient
 {
 private:
+	
 	int complaint;
 	std::string last_name;
 	std::string first_name;
@@ -16,6 +17,7 @@ private:
 	std::vector<std::string> vax;
 	std::vector<std::string> meds;
 	unsigned int last_po;
+	
 public:
 	Generators* p_gen;
 	Chart* p_ch;

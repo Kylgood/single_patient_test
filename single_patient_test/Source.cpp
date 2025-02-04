@@ -71,7 +71,7 @@ int main()
 	int cc = user.chief_complaint();
 	user.set_complaint(cc);
 	int tri = nurse.triage();
-	int gap = ( tri > cc) ? tri : cc ;
+	int gap = ( tri > cc) ? tri : cc;
 	sys_bp_engine.seed(sys_norm + gap);
 	dia_bp_engine.seed(dia_norm + gap);
 	pulse_engine.seed(pulse_norm + gap);
@@ -81,7 +81,7 @@ int main()
 	loc_engine.seed(loc_norm + gap);
 	nurse.take_vital_signs(lround(sys_bp_distr(sys_bp_engine)), lround(dia_bp_distr(dia_bp_engine)), lround(pulse_distr(pulse_engine)),
 		lround(resp_distr(resp_engine)), temp_distr(temp_engine), lround(ox_distr(ox_engine)), lround(loc_distr(loc_engine)));
-	doctor.see_patient();
+	doctor.see_patient(&doctor);
 	
 }
 

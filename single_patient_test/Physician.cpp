@@ -10,53 +10,73 @@ Physician::Physician(Patient* pt, Nurse* rn)
 {
 }
 
-void Physician::see_patient()
+void Physician::see_patient(Physician* g)
 {
-	int help = p_pt->show_complaint();
+	int c = p_pt->show_complaint();
+	//pulse_abnormal && bp_abnormal && low_sat && temp_abnormal && resp_abnormal && low_loc
+
+	p_pt->p_ch->set_physician(g);
 
 	p_pt->p_ch->check_chart();
 
-	std::string pro = p_pt->p_ch->combine_info(help);
-	
-	switch (help)
+	switch (c)
 	{
 	case 1:
 		cardiac_workup();
 		break;
+
 	case 2:
 		respiratory_workup();
 		break;
+
 	case 3:
 		abd_workup();
 		break;
+
 	case 4:
 		neuro_workup();
 		break;
+
 	case 5:
-		psych_workup();
-		break;
-	case 6:
 		trauma_workup();
 		break;
-	case 7:
-		assault_workup();
-		break;
-	case 8:
-		medical_workup();
-		break;
+
 	default:
 		break;
 	}
 	
+}
 
+void Physician::set_bp_flag() 
+{
+	bool bp_abnormal = true;
 
-
-
+}
+void Physician::set_pulse_flag() 
+{
+	bool pulse_abnormal = true;
+		
+}
+void Physician::set_sat_flag() 
+{
+	bool low_sat = true;
+}
+void Physician::set_resp_flag() 
+{
+	bool resp_abnormal = true;
+}
+void Physician::set_temp_flag() 
+{
+	bool temp_abnormal = true;
+}
+void Physician::set_loc_flag() 
+{
+	bool low_loc = true;
 }
 
 void Physician::cardiac_workup()
 {
-	if (p_pt->show_age() > 55 && (p_pt->show_sex() == "male" || p_pt->show_sex() == "m" || p_pt->show_sex() == "Male"))
+	if (pulse_abnormal)
 	{
 		emergency_procedure("cardiac arrest");
 	}
@@ -89,43 +109,38 @@ void Physician::cardiac_workup()
 }
 void Physician::respiratory_workup()
 {
-	std::cout << "Are you having trouble breathing because something hit you in the throat?" << std::endl;
-	std::cout << "Type 'y' for yes, 'n' for no." << std::endl;
-	std::string answer;
-	std::cin >> answer;
-	if (answer == "y")
+	std::cout << "You are wheezing." << std::endl;
+	std::cout << "The physician has prescribed an aerosolized albuterol treatment for your respiratory problem. " << std::endl;
+	std::cout << "Albuterol will dilate your bronchioles, allowing more air to get to your lungs. " << std::endl;
+	pause_continue();
+	std::cout << "The physician has also prescribed a steroid to reduce inflammation in your airways. " << std::endl;
+	pause_continue();
+	if (low_sat)
 	{
-		emergency_procedure("cricothyroidotomy");
+		std::cout << "Your condition has deteriorated." << std::endl;
+		pause_continue();
+		emergency_procedure("rapid sequence intubation");
 	}
 	else
 	{
-		std::cout << "The physician has prescribed an aerosolized albuterol treatment for your respiratory problem. " << std::endl;
-		std::cout << "Albuterol will dilate your bronchioles, allowing more air to get to your lungs. " << std::endl;
+		order_iv_drugs("dexamethasone, a steroid", "inflammation in your lungs");
 		pause_continue();
-		std::cout << "The physician has also prescribed a steroid to reduce inflammation in your airways. " << std::endl;
-		pause_continue();
-		if (p_pt->show_age() > 55)
-		{
-			std::cout << "Your condition has deteriorated." << std::endl;
-			pause_continue();
-			emergency_procedure("rapid sequence intubation");
-		}
-		else
-		{
-			order_iv_drugs("dexamethasone, a steroid", "inflammation in your lungs");
-			pause_continue();
-			std::cout << "Your bronchiolitic episode has resolved." << std::endl;
-			std::cout << "Your respirations are full and unlabored, and your other vitals are stable." << std::endl;
-			p_rn->discharge();
-		}
+		std::cout << "Your bronchiolitic episode has resolved." << std::endl;
+		std::cout << "Your respirations are full and unlabored, and your other vitals are stable." << std::endl;
+		p_rn->discharge();
 	}
+		
+	
 }
 void Physician::abd_workup()
 {
 
 	order_imaging("x-ray");
 	order_lab_tests("Complete Blood Count, Electrolytes, Lipase");
-	order_iv_drugs("normal_saline", "dehydration");
+	if (bp_abnormal)
+	{
+		order_iv_drugs("normal_saline", "dehydration");
+	}
 	pause_continue();
 	std::string answer;
 	std::cout << "Your abdominal x-ray and labs were negative for abnormalities." << std::endl;
@@ -139,107 +154,72 @@ void Physician::abd_workup()
 	{
 		order_imaging("ultrasound");
 		pause_continue();
-		call_consult("surgeon");
-		pause_continue();
-		admit_to_hospital("observation");
+		if (temp_abnormal)
+		{
+			call_consult("surgeon");
+			std::cout << "You have appendicitis.  The surgeon will remove your appendix, which you can live without." << std::endl;
+			order_iv_drugs("antibiotics", "appendicitis");
+			std::cout << "The appendectomy is a very common and routine surgery.  Combined with the antibiotics and a hospital stay," << std::endl;
+			std::cout << "you should recover fully.  This is not the late 1800's or before, where appendicitis would likely kill you!" << std::endl;
+			admit_to_hospital("surgery");
+		}
 
 	}
 }
 void Physician::neuro_workup()
 {
+	std::string answer;
+	std::cout << "Do you have a horrible headache with aura or light sensitivity?" << std::endl;
+	std::cin >> answer;
+	if (answer == "y")
+	{
+		order_iv_drugs("toradol", "migraine");
+	}
 	order_imaging("MRI");
-	pause_continue();
-	emergency_procedure("cerebrospinal fluid");
-	order_iv_drugs("toradol", "migraine");
 	call_consult("neurologist");
-	pause_continue();
-	//or
-	std::cout << "You have meningitis, an infection of the nervous system, and we need to treat you aggressively." << std::endl;
-	order_iv_drugs("antibiotics", "infection");
+	if (temp_abnormal)
+	{
+		emergency_procedure("cerebrospinal fluid");
+		std::cout << "You have meningitis, an infection of the nervous system, and we need to treat you aggressively." << std::endl;
+		order_iv_drugs("antibiotics", "infection");
+	}
 	pause_continue();
 	admit_to_hospital("observation");
 
 
 }
 
-void Physician::psych_workup()
-{
-	order_lab_tests("Complete blood count, Electrolyte panel");
-	order_ekg();
-	order_iv_drugs("ativan", "anxiety");
-	call_consult("psychiatrist");
-	admit_to_hospital("observation");
-}
 void Physician::trauma_workup()
 {
-	//std::cout << "How fast were you going?" << std::endl;
+	if (resp_abnormal)
+	{
+		std::cout << "Are you having trouble breathing because something hit you in the throat in the car accident?" << std::endl;
+		std::cout << "Type 'y' for yes, 'n' for no." << std::endl;
+		std::string answer;
+		std::cin >> answer;
+		if (answer == "y")
+		{
+			emergency_procedure("cricothyroidotomy");
+		}
+	}
+	
 	order_lab_tests("complete blood count, type and screen");
 	order_imaging("CT scan");
 	pause_continue();
 	order_iv_drugs("lactated ringers", "shock");
 	order_iv_drugs("platelets", "blood loss");
-	if (p_pt->show_age() > 30 && p_pt->show_age() < 60)
+	if (pulse_abnormal || bp_abnormal || temp_abnormal)
 	{
 		emergency_procedure("craniotomy");
 	}
 	else
 	{
-		p_rn->discharge();
+		admit_to_hospital("observation and recovery");
 	}
 }
-void Physician::assault_workup()
-{
-	order_iv_drugs("tylenol", "pain");
-	order_iv_drugs("prophylactic antibiotics/antivirals", "potential infection from the assault");
-	call_consult("gynecologist and/or social worker");
-	std::cout << "The police will also be here to speak with you shortly." << std::endl;
-	pause_continue();
-	std::cout << "The nurse will draw labs relevant to sexual assault and ask you to provide a urine sample.  " << std::endl;
-	std::cout << "If applicable, a pregnancy test will be done on this urine. " << std::endl;
-	pause_continue();
-	std::cout << "Prophylactic (medically preventive) sexually transmitted infection treatment will also be offered." << std::endl;
-	std::cout << "A social worker and counselor will be summoned to help you deal with this crisis emotionally and psychologically. " << std::endl;
-	pause_continue();
-	pause_continue();
-	std::string answer;
-	std::cout << "Do you feel safe enough to go home?  Type 'y' or 'n'" << std::endl;
-	if (answer == "y")
-	{
-		p_rn->discharge();
-	}
-	else
-	{
-		admit_to_hospital("observation");
-	}
-}
-void Physician::medical_workup()
-{
-	order_lab_tests("complete blood count, inflammatory markers, metabolic panel w/blood glucose, electrolyte panel");
-	order_iv_drugs("normal saline", "dehydration");
-	std::cout << "Have your symptoms resolved?" << std::endl;
-	std::string answer;
-	std::cin >> answer;
-	if (answer == "y" || answer == "yes")
-	{
-		p_rn->discharge();
-	}
-	else
-	{
-		order_imaging("x-ray");
-		//take_vital_signs();
-		pause_continue();
-		std::cout << "We found something on X ray." << std::endl;
-		call_consult("surgery");
-		std::cout << "You will need to go to the OR." << std::endl;
-		pause_continue();
-		admit_to_hospital("surgery");
-	}
-
-}
-
-
 
 //these go inside other functions
+//change the strings to references!
 void Physician::order_lab_tests(std::string test)
 {//CSF
 	p_rn->draw_labs();	
@@ -290,7 +270,7 @@ void Physician::order_imaging(std::string method)
 	if (method == "CT scan")
 	{
 		std::cout << "Computed Tomagraphy uses higher energy x-rays and algorithmic computations " << std::endl;
-		std::cout << "to generate more detailed and layered imagery of the area. " << std::endl;
+		std::cout << "to generate detailed and layered imagery of the area. " << std::endl;
 		pause_continue();
 	}
 	if (method == "MRI")

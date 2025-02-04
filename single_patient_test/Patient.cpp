@@ -30,7 +30,7 @@ int Patient::chief_complaint()
 	int count = 0;
 	int input;
 
-	std::cout << "What brings you into the emergency room?" << std::endl;
+	std::cout << "What brings you into the emergency room?  (Choose your disease!)" << std::endl;
 	std::cout << "Please select what is wrong by typing the corresponding number and pressing enter." << std::endl;
 	std::cout << std::endl;
 	std::cout << "1 - You are having chest pain and/or palpitations." << std::endl;
@@ -41,13 +41,7 @@ int Patient::chief_complaint()
 	std::cout << std::endl;
 	std::cout << "4 - You have a severe headache, vision changes, hearing loss, speech changes, or sudden weakness." << std::endl;
 	std::cout << std::endl;
-	std::cout << "5 - You think you might hurt or kill yourself." << std::endl;
-	std::cout << std::endl;
-	std::cout << "6 - You were in a vehicular accident." << std::endl; 
-	std::cout << std::endl;
-	std::cout << "7 - You were physically or sexually assaulted." << std::endl;
-	std::cout << std::endl;
-	std::cout << "8 - You do not know what is wrong, but you need help." << std::endl;
+	std::cout << "5 - You were in a vehicular accident." << std::endl; 
 	std::cout << std::endl;
 	std::cin >> input;
 	if (std::cin.fail())
@@ -57,7 +51,7 @@ int Patient::chief_complaint()
 			std::cout << "Invalid entry." << std::endl;
 			std::cin >> input;
 		}
-	if (input <= 0 || input > 8)
+	if (input <= 0 || input >= 6)
 	{
 		std::cout << "Stay where you are.  A nurse is coming to get you." << std::endl;
 		return -999;//follow this up
