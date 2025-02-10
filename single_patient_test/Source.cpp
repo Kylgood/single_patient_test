@@ -1,8 +1,8 @@
 //EMERGENCY ROOM SINGLE PATIENT EXPERIENCE
 //by Kyle Goodale
 //CS50 Final Project
-//part educational 
-//part entertainment
+
+
 #pragma once
 #include <random>
 #include "chart.h"
@@ -52,7 +52,7 @@ int main()
 	
 
 	//ox generator
-	const int ox_norm = 98;
+	const int ox_norm = 97;
 	std::default_random_engine ox_engine;
 	std::normal_distribution<> ox_distr(ox_norm, 2);
 	

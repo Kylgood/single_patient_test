@@ -32,39 +32,40 @@ void Chart::check_chart()
 		}
 		if (i->show_systolic() > 135 || i->show_diastolic() > 89)
 		{
-			std::cout << "\nAbnormal blood pressure." << std::endl;
+			std::cout << "\nAbnormal blood pressure.\n" << std::endl;
 			doc_ptr->set_bp_flag();
 		}
 		if (i->show_o2_sat() < 95)
 		{
 			
-			std::cout << "\nAbnormal oxygen saturation." << std::endl;
+			std::cout << "\nAbnormal oxygen saturation.\n" << std::endl;
 			doc_ptr->set_sat_flag();
 		}
 
 		if (i->show_temp() < 35.0)
 		{
-			std::cout << "\nAbnormal body temperature." << std::endl;
+			std::cout << "\nAbnormal body temperature.\n" << std::endl;
 			doc_ptr->set_temp_flag();
 		}
 		if (i->show_temp() > 38.0)
 		{
-			std::cout << "\nAbnormal body temperature." << std::endl;
+			std::cout << "\nAbnormal body temperature.\n" << std::endl;
 			doc_ptr->set_temp_flag();
 		}
 		if (i->show_resps() < 10)
 		{
-			std::cout << "\nAbnormal respiratory rate." << std::endl;
+			std::cout << "\nAbnormal respiratory rate.\n" << std::endl;
 			doc_ptr->set_resp_flag();
 		}
 		if (i->show_resps() > 22)
 		{
-			std::cout << "\nAbnormal respiratory rate." << std::endl;
+			std::cout << "\nAbnormal respiratory rate.\n" << std::endl;
 			doc_ptr->set_resp_flag();
 		}
 		if (i->show_loc() < 13)
 		{
-			std::cout << "\nLevel of consciousness is below normal." << std::endl;
+			std::cout << "\nLevel of consciousness is below normal.\n" << std::endl;
+			std::cout << std::endl;
 			doc_ptr->set_loc_flag();
 		}
 	}
