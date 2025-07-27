@@ -134,7 +134,6 @@
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Physician.cpp" />
     <ClCompile Include="Provider.cpp" />
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="vitals.cpp" />
   </ItemGroup>
   <ItemGroup>

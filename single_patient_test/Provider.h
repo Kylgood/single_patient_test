@@ -6,9 +6,14 @@ protected:
 	Patient* p_pt;
 public:
 
+	//Gemini suggests a virtual destructor for the base class
 	Provider(Patient*);
+	virtual ~Provider() = default;
+	
+
 	void take_vital_signs(int, int, int, int, double, int, int);
-	void chart_report();
-	void pause_continue();
+	//Gemini: make const
+	void chart_report() const;
+	void pause_continue() const;
 
 };

@@ -46,7 +46,10 @@ void Physician::see_patient(Physician* g)
 	}
 	
 }
-
+//Gemini caught a situation where I was creating new variables
+//within the scope of the function, which 
+//will result in the abnormal vitals flags not working
+//properly
 void Physician::set_bp_flag() 
 {
 	bool bp_abnormal = true;
