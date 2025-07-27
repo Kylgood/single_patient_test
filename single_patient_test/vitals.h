@@ -14,17 +14,17 @@ private:
 	int loc;
 	std::string time_taken;
 
-
+	//Google Gemini suggested that I make these functions const
 public:
 	Vitals(int, int, int, int, double, int, int, std::string);
-    int show_heart();
-	int show_resps();
-	int show_systolic();
-	int show_diastolic();
-	double show_temp();
-	int show_o2_sat();
-	int show_loc();
-	std::string show_time();
+    int show_heart() const;
+	int show_resps() const;
+	int show_systolic() const;
+	int show_diastolic() const;
+	double show_temp() const;
+	int show_o2_sat() const;
+	int show_loc() const;
+	std::string show_time() const;
 	//construct a new set of vitals with constructor function and 
 	//integer arguments in proper order for 
 	//systolic, diastolic, pulse, resps, temp, LOC

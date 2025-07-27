@@ -19,22 +19,27 @@ private:
 	unsigned int last_po;
 	
 public:
+	//Gemini again suggests unique pointers
 	Generators* p_gen;
 	Chart* p_ch;
+	//Gemini suggests destructor
 	Patient();
+	~Patient() = default;
 	void get_set_demographics();
 	int chief_complaint();
-	void set_allergies(std::string s);
-	void set_vax(std::string s);
-	void set_meds(std::string s);
+	//Gemini: use const references where possible to save memory
+	void set_allergies(const std::string& s);
+	void set_vax(const std::string& s);
+	void set_meds(const std::string& s);
 	void set_last_po(unsigned int n);
 	void end_program();
-	void set_complaint( int);
-	int show_age();
-	std::string show_sex();
-	int show_complaint();
-	void print_demographics();
-	void print_all_vax_meds();
+	void set_complaint(int);
+	//Gemini: make functions const where possible
+	int show_age() const;
+	std::string show_sex() const;
+	int show_complaint() const;
+	void print_demographics() const;
+	void print_all_vax_meds() const;
 
 
 };

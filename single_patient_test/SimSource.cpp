@@ -20,47 +20,7 @@
 int main()
 {
 	
-	//sys bp generator
-	const int sys_norm = 120;
-	std::default_random_engine sys_bp_engine;
-	std::normal_distribution<> sys_bp_distr(sys_norm, 10);
 	
-    
-	//dia bp generator
-	const int dia_norm = 80;
-	std::default_random_engine dia_bp_engine;
-	std::normal_distribution<> dia_bp_distr(dia_norm, 5);
-	
-
-	//heart rate bp generator
-	const int pulse_norm = 75;
-	std::default_random_engine pulse_engine;
-	std::normal_distribution<> pulse_distr(pulse_norm, 15);
-	
-	
-
-	//resp generator
-	const int resp_norm = 16;
-	std::default_random_engine resp_engine;
-	std::normal_distribution<> resp_distr(resp_norm, 4);
-	
-
-	//temp generator
-	const float temp_norm = 37.0;
-	std::default_random_engine temp_engine;
-	std::normal_distribution<> temp_distr(temp_norm, 1.5);
-	
-
-	//ox generator
-	const int ox_norm = 97;
-	std::default_random_engine ox_engine;
-	std::normal_distribution<> ox_distr(ox_norm, 2);
-	
-
-    //loc generator
-	const int loc_norm = 13;
-	std::default_random_engine loc_engine;
-	std::normal_distribution<> loc_distr(loc_norm, 3);
 	
 	
 	
