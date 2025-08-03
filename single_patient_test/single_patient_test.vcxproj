@@ -134,11 +134,13 @@
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Physician.cpp" />
     <ClCompile Include="Provider.cpp" />
+    <ClCompile Include="SimSource.cpp" />
     <ClCompile Include="vitals.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chart.h" />
     <ClInclude Include="generators.h" />
+    <ClInclude Include="includes.h" />
     <ClInclude Include="Nurse.h" />
     <ClInclude Include="Patient.h" />
     <ClInclude Include="Physician.h" />

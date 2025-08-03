@@ -1,7 +1,7 @@
 #pragma once
 #include "generators.h"
 #include "chart.h"
-
+#include "includes.h"
 
 class Patient
 {

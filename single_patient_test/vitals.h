@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "includes.h"
 class Vitals {
 
 private:

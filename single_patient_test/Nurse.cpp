@@ -6,99 +6,82 @@
 
 
 //derived class Nurse definitions
+// --- Nurse Class Definitions ---
 
+//Gemini added const to my functions and references where appropriate
 
-Nurse::Nurse(Patient* q)
-	:Provider(q)
-{}
-int Nurse::triage()
-{
+Nurse::Nurse(Patient* q) : Provider(q) {}
+
+int Nurse::triage() {
 	std::string line_allerg;
 	std::string line_vax;
 	std::string line_meds;
-	std::string a_bridge;
-	std::string v_bridge;
-	std::string m_bridge;
-	int last_po;
-	//if complaint = 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10, 11, 12
-	//allergies
+	unsigned int last_po_input;
+
 	pause_continue();
-	std::cout << "You are next in line." << std::endl;
-	std::cout << "Please enter any foods or medications to which you are ALLERGIC." << std::endl;
-	std::cout << "If there are none, or you are finished, type q on a new line and press enter." << std::endl;
-	while (getline(std::cin, line_allerg))
-	{
-		if (line_allerg == "q")
-		{
-			break;
-		}
+	std::cout << "\nYou are next in line." << std::endl;
+
+	// Allergies
+	std::cout << "\nPlease enter any foods or medications to which you are ALLERGIC." << std::endl;
+	std::cout << "If there are none, or you are finished, type 'q' on a new line and press enter." << std::endl;
+	// The previous std::cin.ignore after chief_complaint should handle clearing the buffer
+	while (std::getline(std::cin, line_allerg) && line_allerg != "q") {
 		std::istringstream divider(line_allerg);
-		while (divider >> a_bridge)
-		{
+		std::string a_bridge;
+		while (divider >> a_bridge) {
 			p_pt->set_allergies(a_bridge);
 		}
 	}
-	std::cout << std::endl;
-	//vaccines
-	std::cout << "Please list all of the vaccines that you have received." << std::endl;
-	std::cout << "If there are none, or you are finished, type q on a new line and press enter. " << std::endl;
-	while (getline(std::cin, line_vax))
-	{
-		if (line_vax == "q")
-		{
-			break;
-		}
+
+	// Vaccinations
+	std::cout << "\nPlease list all of the vaccines that you have received." << std::endl;
+	std::cout << "If there are none, or you are finished, type 'q' on a new line and press enter. " << std::endl;
+	while (std::getline(std::cin, line_vax) && line_vax != "q") {
 		std::istringstream separate(line_vax);
-		while (separate >> v_bridge)
-		{
+		std::string v_bridge;
+		while (separate >> v_bridge) {
 			p_pt->set_vax(v_bridge);
 		}
 	}
-	std::cout << std::endl;
-	//medications
-	std::cout << "Please list any medications you are CURRENTLY TAKING. " << std::endl;
-	std::cout << "If there are none, or you are finished, type q on a new line and press enter. " << std::endl;
-	while (getline(std::cin, line_meds))
-	{
-		if (line_meds == "q")
-		{
-			break;
-		}
+
+	// Medications
+	std::cout << "\nPlease list any medications you are CURRENTLY TAKING. " << std::endl;
+	std::cout << "If there are none, or you are finished, type 'q' on a new line and press enter. " << std::endl;
+	while (std::getline(std::cin, line_meds) && line_meds != "q") {
 		std::istringstream wall(line_meds);
-		while (wall >> m_bridge)
-		{
+		std::string m_bridge;
+		while (wall >> m_bridge) {
 			p_pt->set_meds(m_bridge);
 		}
 	}
-	std::cout << std::endl;
-	//last_PO
-	std::cout << "How many hours ago did you last eat or drink anything? " << std::endl;
-	std::cin >> last_po;
-	if (std::cin.fail())//if non-numeric...
-	{
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "Invalid entry. Please speak with the nurse. " << std::endl;
-		std::cin >> last_po;
-		
-		
-	}
-	p_pt->set_last_po(last_po);
-	return last_po;
+
+	// Last PO (per os)
+	do {
+		std::cout << "\nHow many hours ago did you last eat or drink anything? " << std::endl;
+		std::cin >> last_po_input;
+		if (std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Invalid entry. Please enter a number." << std::endl;
+		}
+		else {
+			break; // Valid input, exit loop
+		}
+	} while (true);
+
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear buffer after numeric input
+	p_pt->set_last_po(last_po_input);
+	return last_po_input;
 }
-void Nurse::draw_labs() 
-{
-	std::cout << "Your nurse is now drawing blood from your IV for the required " << std::endl; 
+
+void Nurse::draw_labs() const {
+	std::cout << "\nYour nurse is now drawing blood from your IV for the required " << std::endl;
 	std::cout << "studies and will send the vials to the lab for analysis. " << std::endl;
 	pause_continue();
-
-	
-	
 }
-void Nurse::give_oxygen() 
-{
-	
-	std::cout << "The nurse is placing a nonrebreather oxygen mask on your face, " << std::endl;
+
+void Nurse::give_oxygen() const {
+	std::cout << "\nThe nurse is placing a nonrebreather oxygen mask on your face, " << std::endl;
 	std::cout << " at a rate of 12 liters per minute." << std::endl;
 	pause_continue();
 	std::cout << "Normal room air is a mixture composed mostly of oxygen and nitrogen." << std::endl;
@@ -107,25 +90,19 @@ void Nurse::give_oxygen()
 	std::cout << "Using a tank full of pure oxygen and delivered with a mask and connecting tube, " << std::endl;
 	std::cout << "we can maximize the nourishment which the cells of your body receive with each breath." << std::endl;
 	pause_continue();
-	std::cout << std::endl;
-	std::cout << std::endl;
-
 }
-void Nurse::give_iv_drugs( ) 
-{
-	if (iv_placed == false)
-	{
+
+void Nurse::give_iv_drugs() {
+	if (!iv_placed) {
 		pause_continue();
-		std::cout << std::endl;
-		std::cout << "The nurse is placing an intravenous line, a kind of flexible access port to your circulatory system" << std::endl;
+		std::cout << "\nThe nurse is placing an intravenous line, a kind of flexible access port to your circulatory system" << std::endl;
 		std::cout << "into your arm for medication and fluid delivery, as ordered by the physician. " << std::endl;
 		pause_continue();
-		std::cout << "You will feel a strong pinch!  Do not move your arm or the nurse will have to start over!" << std::endl;
+		std::cout << "You will feel a strong pinch! Do not move your arm or the nurse will have to start over!" << std::endl;
 		pause_continue();
 		std::cout << "The nurse placed the IV successfully, she will now hook up to a hydration machine or inject the prescribed " << std::endl;
 		std::cout << "drug with some liquid solution so that it can enter your bloodstream smoothly." << std::endl;
-		std::cout << std::endl;
-		std::cout << "You should start feeling at least a little better momentarily!" << std::endl;
+		std::cout << "\nYou should start feeling at least a little better momentarily!" << std::endl;
 		pause_continue();
 		std::cout << "Administering medications and hydration fluids intravenously with sterile equipment is a safe " << std::endl;
 		std::cout << "and efficient way to treat your symptoms and/or illness. " << std::endl;
@@ -144,12 +121,10 @@ void Nurse::give_iv_drugs( )
 	}
 	std::cout << "The medication was successfully given." << std::endl;
 	pause_continue();
-	
 }
-void Nurse::perform_ekg() 
-{
-	
-	std::cout << "The nurse is now placing electrodes in a specific conformation on your skin to measure the signals from your heart. " << std::endl;
+
+void Nurse::perform_ekg() const {
+	std::cout << "\nThe nurse is now placing electrodes in a specific conformation on your skin to measure the signals from your heart. " << std::endl;
 	pause_continue();
 	std::cout << "Six electrodes will go on the left side of your torso, " << std::endl;
 	std::cout << "where the strongest part of your heart is, and one electrode will go on each arm and leg. " << std::endl;
@@ -162,24 +137,23 @@ void Nurse::perform_ekg()
 	std::cout << "The EKG has been printed and the doctor will evaluate it." << std::endl;
 	std::cout << std::endl;
 }
-void Nurse::pass_report()
-{
-	std::cout << std::endl;
+
+void Nurse::pass_report() const {
+	std::cout << "\n";
 	pause_continue();
 	std::cout << "The nurse is calling report upstairs, which means the nurse is passing a " << std::endl;
 	std::cout << "detailed verbal summary of your condition and profile to inpatient nurse upstairs." << std::endl;
-	std::cout << std::endl;
-	std::cout << "A staff member will bring you upstairs shortly. " << std::endl;
+	std::cout << "\nA staff member will bring you upstairs shortly. " << std::endl;
 	pause_continue();
 	std::cout << "Here is your chart: " << std::endl;
 	chart_report();
 }
-void Nurse::discharge() 
-{
-	std::cout << "Your condition has improved enough that your life is not in danger and you will recover safely on your own!" << std::endl;
+
+void Nurse::discharge() const {
+	std::cout << "\nYour condition has improved enough that your life is not in danger and you will recover safely on your own!" << std::endl;
 	std::cout << "Congratulations!" << std::endl;
 	pause_continue();
-	std::cout << "The nurse has given you your discharge paperwork and you are cleared to go home.  Here is a copy of the chart from your visit. " << std::endl;
+	std::cout << "The nurse has given you your discharge paperwork and you are cleared to go home. Here is a copy of the chart from your visit. " << std::endl;
 	std::cout << "Don't forget to validate your parking at the checkout desk!" << std::endl;
 	chart_report();
 }

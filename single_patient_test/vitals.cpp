@@ -3,46 +3,18 @@
 
 //class Vitals definitions
 
-Vitals::Vitals(int sys, int dia, int hr, int rr, double t, int ox, int lc, std::string clock) //systolic, diastolic, heart rate, resp, temp, level conciousness
-	:systolic(sys), diastolic(dia), pulse(hr), resps(rr), temp(t), o2_sat(ox), loc(lc), time_taken(clock)
+//Gemini added const to my functions for best practice
+// --- Vitals Class Definitions ---
+Vitals::Vitals(int sys, int dia, int hr, int rr, double t, int ox, int lc, std::string clock)
+	: systolic(sys), diastolic(dia), pulse(hr), resps(rr), temp(t), o2_sat(ox), loc(lc), time_taken(std::move(clock))
 {
-
-}
-int Vitals::show_heart()
-{
-	return pulse;
-
-}
-int Vitals::show_resps()
-{
-	return resps;
-}
-int Vitals::show_systolic()
-{
-	return systolic;
-}
-int Vitals::show_diastolic()
-{
-	return diastolic;
 }
 
-double Vitals::show_temp()
-{
-	return temp;
-}
-
-int Vitals::show_o2_sat()
-{
-	return o2_sat;
-}
-int Vitals::show_loc()
-{
-	return loc;
-}
-
-std::string Vitals::show_time() {
-
-	return time_taken;
-
-
-}
+int Vitals::show_heart() const { return pulse; }
+int Vitals::show_resps() const { return resps; }
+int Vitals::show_systolic() const { return systolic; }
+int Vitals::show_diastolic() const { return diastolic; }
+double Vitals::show_temp() const { return temp; }
+int Vitals::show_o2_sat() const { return o2_sat; }
+int Vitals::show_loc() const { return loc; }
+std::string Vitals::show_time() const { return time_taken; }

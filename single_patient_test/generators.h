@@ -2,6 +2,8 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <random>
+#include "includes.h"
 class Generators //for testing and simulation
 {
 

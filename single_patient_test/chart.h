@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "vitals.h"
+#include "includes.h"
 
 //forward declaration for the chart class's pointer
 class Physician;
