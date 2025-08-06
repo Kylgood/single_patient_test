@@ -16,15 +16,16 @@ private:
 
 	//Gemini suggests that I use a unique_ptr as it will automatically 
 	//handle destruction of objects
-	std::vector<Vitals*> chart;
+	std::vector<std::unique_ptr<Vitals>> chart; // Using unique_ptr for automatic memory management
 
 public:
 	//Gemini suggests to add destructors
 	Chart() = default;
 	~Chart() = default;
-	void update_chart(Vitals*);
+	void update_chart(std::unique_ptr<Vitals> s);
 	void check_chart();
 	void set_physician(Physician*);
+
 	//eliminate useless function
 	//void combine_info(const int);
 

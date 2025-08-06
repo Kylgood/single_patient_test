@@ -20,8 +20,8 @@ private:
 	
 public:
 	//Gemini again suggests unique pointers
-	Generators* p_gen;
-	Chart* p_ch;
+	std::unique_ptr<Generators> p_gen; // Using unique_ptr for ownership
+	std::unique_ptr<Chart> p_ch;
 	//Gemini suggests destructor
 	Patient();
 	~Patient() = default;
